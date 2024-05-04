@@ -25,4 +25,17 @@ type expr =
 
 #!fsharp
 
-Int 123, Op("+", Int 2, Int 3)
+let i123 = Int 123
+let add12 = Op("+", Int 1, Int 2)
+
+#!fsharp
+
+let rec eval (e: expr) : int =
+    match e with
+    | Int i -> i
+    | Op("+", e1, e2) -> eval e1 + eval e2
+    | _ -> failwith ""
+
+#!fsharp
+
+eval i123, eval add12
