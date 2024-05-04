@@ -15,6 +15,6 @@ type Token =
 
 type expr =
     | Int of int
-    | Prim of string * expr * expr
+    | Op of string * expr * expr
 
-printfn "%A" (Int 123, Prim("+", Int 2, Int 3))
+printfn "%A" (Int 123, Op("+", Int 2, Int 3))

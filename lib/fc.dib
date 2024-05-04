@@ -4,4 +4,25 @@
 
 #!fsharp
 
-123
+open System
+
+#!fsharp
+
+Environment.CurrentDirectory
+
+#!fsharp
+
+Environment.SetEnvironmentVariable(
+    "PATH",
+    Environment.CurrentDirectory + ":" + Environment.GetEnvironmentVariable("PATH")
+)
+
+#!fsharp
+
+type expr =
+    | Int of int
+    | Op  of string * expr * expr
+
+#!fsharp
+
+Int 123, Op("+", Int 2, Int 3)
