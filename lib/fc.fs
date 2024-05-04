@@ -17,4 +17,4 @@ type expr =
     | Int of int
     | Prim of string * expr * expr
 
-expr.Int 123, expr.Prim("+", Int(2), Int(3))
+printfn "%A" (Int 123, Prim("+", Int 2, Int 3))
