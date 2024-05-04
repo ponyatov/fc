@@ -23,6 +23,7 @@ tail -n1 .gitignore >> tmp/.gitignore
 echo '*'            >  bin/.gitignore
 tail -n1 .gitignore >> ref/.gitignore
 
-
 dotnet new console -lang "F#" -o $(MODULE)
 dotnet new tool-manifest
+dotnet tool install fantomas
+dotnet tool update --global Microsoft.dotnet-interactive
