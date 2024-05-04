@@ -6,13 +6,14 @@ open NUnit.Framework
 let Setup () = ()
 
 [<Test>]
-let Test1 () = Assert.Pass()
+let pass () = Assert.Pass()
 
-// [<TestFixture>]
-// type TestClass() =
+// [<Test>]
+// let fail () = Assert.Fail
 
-//     [<Test>]
-//     member this.Hello() = Assert.That(true, Is.True)
+[<Test>]
+let i123 () = Assert.AreEqual(fc.Int 123, fc.i123)
+
 
 module Program =
     [<EntryPoint>]

@@ -1,17 +1,6 @@
 ﻿module fc
 
-let about = printfn "F# compiler library"
-
-open System
-
-Environment.SetEnvironmentVariable(
-    "PATH",
-    Environment.CurrentDirectory + ":" + Environment.GetEnvironmentVariable("PATH")
-)
-
-type Token =
-    | Int of int
-    | Str of string
+let about = "F# compiler library"
 
 type expr =
     | Int of int
@@ -26,4 +15,4 @@ let rec eval (e: expr) : int =
     | Op("+", e1, e2) -> eval e1 + eval e2
     | _ -> failwith ""
 
-printfn "%A" [ eval (Op("+", Int 1, Int 2)) ]
+// eval Op("+", Int 1, Int 2)
