@@ -1,4 +1,7 @@
-﻿module fc
+﻿namespace FC
 
-// For more information see https://aka.ms/fsharp-console-apps
-printfn "Hello from F#"
+type X = I of int
+
+module fc =
+    let hello = printfn "Hello from F#"
+    let sum a b = a + b
