@@ -1,8 +1,11 @@
+# src
+F += $(wildcard lib/*.fs)
+
 # format
 .PHONY: format
 format: tmp/format_f
 tmp/format_f: $(F)
-	$(DOTNET) fantomas --force $? && touch $@
+	dotnet fantomas --force $? && touch $@
 
 .PHONY: install
 install: .config/dotnet-tools.json
