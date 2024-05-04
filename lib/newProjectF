@@ -25,3 +25,4 @@ tail -n1 .gitignore >> ref/.gitignore
 
 
 dotnet new console -lang "F#" -o $(MODULE)
+dotnet new tool-manifest
