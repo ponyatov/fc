@@ -26,4 +26,7 @@ tail -n1 .gitignore >> ref/.gitignore
 dotnet new console -lang "F#" -o $(MODULE)
 dotnet new tool-manifest
 dotnet tool install fantomas
-dotnet tool update --global Microsoft.dotnet-interactive
+dotnet tool update -v d \
+	--ignore-failed-sources \
+	--global Microsoft.dotnet-interactive \
+	--add-source https://api.nuget.org/v3/index.json
