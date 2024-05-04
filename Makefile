@@ -1,5 +1,13 @@
+# var
+MODULE = $(notdir $(CURDIR))
+
 # src
 F += $(wildcard lib/*.fs)
+
+# all
+.PHONY: all
+all: $(F) $(MODULE).*proj
+	dotnet build
 
 # format
 .PHONY: format

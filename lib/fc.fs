@@ -12,3 +12,9 @@ Environment.SetEnvironmentVariable(
 type Token =
     | Int of int
     | Str of string
+
+type expr =
+    | Int of int
+    | Prim of string * expr * expr
+
+expr.Int 123, expr.Prim("+", Int(2), Int(3))
