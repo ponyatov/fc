@@ -6,5 +6,6 @@
         "ionide.ionide-fsharp",
         "ms-dotnettools.dotnet-interactive-vscode",
         "jmrog.vscode-nuget-package-manager",
+        "tintoy.msbuild-project-tools",
     ]
 }
