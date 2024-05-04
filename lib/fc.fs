@@ -1,7 +1,14 @@
-﻿namespace FC
+﻿module fc
 
-type X = I of int
+let about = printfn "F# compiler library"
 
-module fc =
-    let hello = printfn "Hello from F#"
-    let sum a b = a + b
+open System
+
+Environment.SetEnvironmentVariable(
+    "PATH",
+    Environment.CurrentDirectory + ":" + Environment.GetEnvironmentVariable("PATH")
+)
+
+type Token =
+    | Int of int
+    | Str of string
