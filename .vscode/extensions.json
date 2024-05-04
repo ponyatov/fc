@@ -2,6 +2,9 @@
     "recommendations": [
         "stkb.rewrap",
         "ryuta46.multi-command",
+        "tabnine.tabnine-vscode",
+        "ms-vscode.makefile-tools",
+        // "ms-vscode-remote.remote-ssh",
         // F#
         "ionide.ionide-fsharp",
         "ms-dotnettools.dotnet-interactive-vscode",
