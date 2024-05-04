@@ -9,6 +9,10 @@ F += $(wildcard lib/*.fs)
 all: $(F) $(MODULE).*proj
 	dotnet build
 
+.PHONY: test
+test: $(F) $(MODULE).*proj
+	dotnet test
+
 # format
 .PHONY: format
 format: tmp/format_f

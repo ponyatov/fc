@@ -17,7 +17,8 @@ type expr =
     | Int of int
     | Op of string * expr * expr
 
-printfn "%A" (Int 123, Op("+", Int 2, Int 3))
+let i123 = Int 123
+let add12 = Op("+", Int 2, Int 3)
 
 let rec eval (e: expr) : int =
     match e with
