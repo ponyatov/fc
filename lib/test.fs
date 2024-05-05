@@ -25,7 +25,9 @@ let add12 () =
     Assert.AreEqual(eval (Op("*", Int 2, Int 3)), 6)
 
 [<Test>]
-let vasd () = Assert.AreEqual(vasd, Var "asd")
+let vasd () =
+    Assert.AreEqual(vasd, Var "asd")
+    Assert.AreEqual(lookup env "pi", 3)
 
 module Stub =
     [<EntryPoint>]
