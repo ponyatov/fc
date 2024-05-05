@@ -4,6 +4,15 @@
 
 #!fsharp
 
+#r "nuget:Microsoft.NET.Test.Sdk"
+#r "nuget:NUnit"
+
+#!fsharp
+
+open NUnit.Framework
+
+#!fsharp
+
 type expr =
     | Int of int
     | Op  of string * expr * expr
