@@ -9,16 +9,20 @@ let Setup () = ()
 let pass () = Assert.Pass()
 
 // [<Test>]
-// let fail () = Assert.Fail
+// let fail () = Assert.Fail()
 
 open fc
 
 [<Test>]
-let i123 () = Assert.AreEqual(Int 123, i123)
+let i123 () =
+    Assert.AreEqual(Int 123, i123)
+    Assert.AreEqual(eval (i123), 123)
 
 [<Test>]
 let add12 () =
-    Assert.AreEqual(add12, Op("+", Int 2, Int 3))
+    Assert.AreEqual(add12, Op("+", Int 1, Int 2))
+    Assert.AreEqual(eval (add12), 3)
+    Assert.AreEqual(eval (Op("*", Int 2, Int 3)), 6)
 
 module Stub =
     [<EntryPoint>]

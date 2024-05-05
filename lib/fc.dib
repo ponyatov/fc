@@ -4,28 +4,13 @@
 
 #!fsharp
 
-open System
-
-#!fsharp
-
-Environment.CurrentDirectory
-
-#!fsharp
-
-Environment.SetEnvironmentVariable(
-    "PATH",
-    Environment.CurrentDirectory + ":" + Environment.GetEnvironmentVariable("PATH")
-)
-
-#!fsharp
-
 type expr =
     | Int of int
     | Op  of string * expr * expr
 
 #!fsharp
 
-let i123 = Int 123
+let i123  = Int 123
 let add12 = Op("+", Int 1, Int 2)
 
 #!fsharp
@@ -34,6 +19,7 @@ let rec eval (e: expr) : int =
     match e with
     | Int i -> i
     | Op("+", e1, e2) -> eval e1 + eval e2
+    | Op("*", e1, e2) -> eval e1 * eval e2
     | _ -> failwith ""
 
 #!fsharp
