@@ -26,3 +26,7 @@ let rec eval (e: expr) : int =
 #!fsharp
 
 eval i123, eval add12
+
+#!fsharp
+
+Var "asdf"

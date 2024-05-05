@@ -4,10 +4,12 @@ let about = "F# compiler library"
 
 type expr =
     | Int of int
+    | Var of string
     | Op of string * expr * expr
 
 let i123 = Int 123
 let add12 = Op("+", Int 1, Int 2)
+let vasd = Var "asd"
 
 let rec eval (e: expr) : int =
     match e with

@@ -24,6 +24,9 @@ let add12 () =
     Assert.AreEqual(eval (add12), 3)
     Assert.AreEqual(eval (Op("*", Int 2, Int 3)), 6)
 
+[<Test>]
+let vasd () = Assert.AreEqual(vasd, Var "asd")
+
 module Stub =
     [<EntryPoint>]
     let main _ = 0
