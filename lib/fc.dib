@@ -1,20 +1,12 @@
 #!meta
 
-{"kernelInfo":{"defaultKernelName":"csharp","items":[{"aliases":[],"name":"csharp"},{"aliases":[],"languageName":"fsharp","name":"fsharp"}]}}
-
-#!fsharp
-
-#r "nuget:Microsoft.NET.Test.Sdk"
-#r "nuget:NUnit"
-
-#!fsharp
-
-open NUnit.Framework
+{"kernelInfo":{"defaultKernelName":"fsharp","items":[{"aliases":[],"name":"csharp"},{"aliases":[],"languageName":"fsharp","name":"fsharp"}]}}
 
 #!fsharp
 
 type expr =
     | Int of int
+    | Var of string
     | Op  of string * expr * expr
 
 #!fsharp
