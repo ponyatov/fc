@@ -23,23 +23,20 @@ let env: (string*int) list = [("pi",3); ("zero",0)]
 let rec lookup (env: (string * int) list) (name: string): int =
     match env with
     | [] -> failwith name
-    | (k,v)::r -> if k=name then v else lookup r name
+    | (k,v)::r -> if k = name then v else lookup r name
     | _ -> failwith "undef"
 lookup env "pi"
 
 #!fsharp
 
-let rec eval (e: expr) : int =
+let rec eval (e: expr) (env: (string*int) list): int =
     match e with
     | Int i -> i
-    | Op("+", e1, e2) -> eval e1 + eval e2
-    | Op("*", e1, e2) -> eval e1 * eval e2
+    | Op("+", e1, e2) -> eval e1 env + eval e2 env
+    | Op("*", e1, e2) -> eval e1 env * eval e2 env
+    | Var v -> lookup env v
     | _ -> failwith ""
 
 #!fsharp
 
-eval i123, eval add12
-
-#!fsharp
-
-Var "asdf"
+eval i123 env, eval add12 env, eval (Var "zero") env
