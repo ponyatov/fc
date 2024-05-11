@@ -1,6 +1,19 @@
 # var
 MODULE = $(notdir $(CURDIR))
 
+# version
+KAITAI_VER = 0.10
+
+# dir
+CWD   = $(CURDIR)
+DISTR = $(HOME)/distr
+
+# tool
+CURL = curl -L -o
+
+# package
+KAITAI_DEB = kaitai-struct-compiler_$(KAITAI_VER)_all.deb
+
 # src
 F += $(wildcard lib/*.fs)
 
@@ -28,3 +41,11 @@ install: .config/dotnet-tools.json
 		--add-source https://api.nuget.org/v3/index.json
 .config/dotnet-tools.json:
 	dotnet new  tool-manifest
+
+
+.PHONY: kaitai
+kaitai: $(DISTR)/SDK/$(KAITAI_DEB)
+	sudo apt-get install $<
+
+$(DISTR)/SDK/$(KAITAI_DEB):
+	$(CURL) $@ https://github.com/kaitai-io/kaitai_struct_compiler/releases/download/0.10/$(KAITAI_DEB)

@@ -20,4 +20,5 @@
     // F#
     "polyglot-notebook.defaultNotebookExtension": ".dib",
     "polyglot-notebook.defaultNotebookLanguage": "fsharp",
+    "FSharp.suggestGitignore": false,
 }

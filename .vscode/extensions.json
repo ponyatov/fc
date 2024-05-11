@@ -5,6 +5,7 @@
         "tabnine.tabnine-vscode",
         "ms-vscode.makefile-tools",
         // "ms-vscode-remote.remote-ssh",
+        "fudgepops.kaitai-struct-vscode",
         // F#
         "ionide.ionide-fsharp",
         "ms-dotnettools.dotnet-interactive-vscode",
