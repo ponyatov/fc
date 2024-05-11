@@ -6,6 +6,7 @@ KAITAI_VER = 0.10
 
 # dir
 CWD   = $(CURDIR)
+DOC   = $(CWD)/doc
 TMP   = $(CWD)/tmp
 DISTR = $(HOME)/distr
 
@@ -35,9 +36,12 @@ format: tmp/format_f
 tmp/format_f: $(F)
 	dotnet fantomas --force $? && touch $@
 
+.PHONY: doc
+doc: doc/PDF_ISO_32000-2.pdf
+
 # install
 .PHONY: install update ref gz
-install: .config/dotnet-tools.json
+install: .config/dotnet-tools.json doc ref
 	dotnet tool install fantomas
 	dotnet tool update -v d \
 		--ignore-failed-sources \
@@ -49,8 +53,11 @@ install: .config/dotnet-tools.json
 ref: kaitai ref/kaitai-pdf
 
 .PHONY: pdf
-pdf: doc/pdf.ksy
-	$(KAITAI) $< -t html -d $(TMP)
+pdf: tmp/pdf.html
+
+tmp/pdf.html: $(DOC)/pdf.ksy
+	cd tmp ; $(KAITAI) $< -t html
+# -d $(TMP)/$@.html
 
 .PHONY: kaitai
 kaitai: /usr/bin/$(KAITAI) ref/kaitai-pdf
@@ -64,3 +71,6 @@ $(DISTR)/SDK/$(KAITAI_DEB):
 
 ref/kaitai-pdf:
 	git clone --depth 1 https://github.com/arlac77/kaitai-pdf.git $@
+
+doc/PDF_ISO_32000-2.pdf:
+	$(CURL) $@ https://developer.adobe.com/document-services/docs/assets/5b15559b96303194340b99820d3a70fa/PDF_ISO_32000-2.pdf
