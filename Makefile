@@ -9,7 +9,8 @@ CWD   = $(CURDIR)
 DISTR = $(HOME)/distr
 
 # tool
-CURL = curl -L -o
+CURL   = curl -L -o
+KAITAI = /usr/bin/kaitai_struct_compiler
 
 # package
 KAITAI_DEB = kaitai-struct-compiler_$(KAITAI_VER)_all.deb
@@ -32,7 +33,8 @@ format: tmp/format_f
 tmp/format_f: $(F)
 	dotnet fantomas --force $? && touch $@
 
-.PHONY: install
+# install
+.PHONY: install update ref gz
 install: .config/dotnet-tools.json
 	dotnet tool install fantomas
 	dotnet tool update -v d \
@@ -42,10 +44,16 @@ install: .config/dotnet-tools.json
 .config/dotnet-tools.json:
 	dotnet new  tool-manifest
 
+ref: kaitai ref/kaitai-pdf
 
 .PHONY: kaitai
-kaitai: $(DISTR)/SDK/$(KAITAI_DEB)
-	sudo apt-get install $<
+kaitai: $(KAITAI) ref/kaitai-pdf
+
+$(KAITAI): $(DISTR)/SDK/$(KAITAI_DEB)
+	sudo apt-get install $< && sudo touch $@
 
 $(DISTR)/SDK/$(KAITAI_DEB):
 	$(CURL) $@ https://github.com/kaitai-io/kaitai_struct_compiler/releases/download/0.10/$(KAITAI_DEB)
+
+ref/kaitai-pdf:
+	git clone --depth 1 https://github.com/arlac77/kaitai-pdf.git $@
