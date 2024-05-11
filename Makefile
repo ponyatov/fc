@@ -53,11 +53,13 @@ install: .config/dotnet-tools.json doc ref
 ref: kaitai ref/kaitai-pdf
 
 .PHONY: pdf
-pdf: tmp/pdf.html
+pdf: tmp/pdf.html tmp/pdf.cpp
 
 tmp/pdf.html: $(DOC)/pdf.ksy
 	cd tmp ; $(KAITAI) $< -t html
-# -d $(TMP)/$@.html
+
+tmp/pdf.cpp: $(DOC)/pdf.ksy
+	cd tmp ; $(KAITAI) $< -t cpp_stl
 
 .PHONY: kaitai
 kaitai: /usr/bin/$(KAITAI) ref/kaitai-pdf

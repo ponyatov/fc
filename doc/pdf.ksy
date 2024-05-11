@@ -4,6 +4,7 @@ meta:
   title: Portable Document Format
   file-extension: pdf
   encoding: UTF-8
+  endian: le
 doc-ref:
   - https://www.iso.org/standard/75839.html
   - https://developer.adobe.com/document-services/docs/assets/5b15559b96303194340b99820d3a70fa/PDF_ISO_32000-2.pdf
@@ -17,6 +18,6 @@ types:
         size: 5
         contents: "%PDF-"
       - id: version
-        type: header
+        type: str
         size: 5
         terminator: 0x0D
