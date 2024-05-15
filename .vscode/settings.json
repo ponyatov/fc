@@ -15,7 +15,8 @@
         "docs/**": true,
         ".vscode/*.log": true,
         "bin/*python*":true, "bin/pip*": true, "bin/?ctivate*": true,
-        "bin/jupyter*":true, "include":true, "lib64":true, "lib/python*": true,
+        "include":true, "lib64":true, "lib/python*": true,
+        "bin/jupyter*":true, "lib/.ipynb_checkpoints": true,
     },
     "files.watcherExclude": {
         "docs/**": true,
