@@ -4,12 +4,28 @@
         "ryuta46.multi-command",
         "tabnine.tabnine-vscode",
         "ms-vscode.makefile-tools",
-        // "ms-vscode-remote.remote-ssh",
-        "fudgepops.kaitai-struct-vscode",
+        "ms-vscode-remote.remote-ssh",
+        // Linux
+        "foxundermoon.shell-format",
+        "coolbear.systemd-unit-file",
+        // formatters
+        "xaver.clang-format",
+        "foxundermoon.shell-format",
         // F#
         "ionide.ionide-fsharp",
         "ms-dotnettools.dotnet-interactive-vscode",
         "jmrog.vscode-nuget-package-manager",
         "tintoy.msbuild-project-tools",
+        // C++
+        "ms-vscode.cpptools",
+        "jeff-hykin.better-cpp-syntax",
+        "ms-vscode.cmake-tools",
+        // flex/bison
+        "daohong-emilio.yash",
+        // // LLVM
+        // "rreverser.llvm",
+        // "basdp.language-gas-x86",
+        // // Arduino
+        // "vsciot-vscode.vscode-arduino"
     ]
 }
