@@ -7,4 +7,5 @@
 lib64
 include/
 share/
+lib/.ipynb_checkpoints/
 !.gitignore
