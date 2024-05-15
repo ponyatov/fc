@@ -27,8 +27,10 @@ KAITAI_URL = https://github.com/kaitai-io/$(KAITAI)/releases/download/$(KAITAI_V
 F += $(wildcard lib/*.fs)
 
 # all
-.PHONY: all
+.PHONY: all lab
 all:
+lab: $(LAB)
+	$^
 
 .PHONY: build
 build: $(F) $(MODULE).*proj
