@@ -1,0 +1,10 @@
+.git/**
+bin/**
+tmp/**
+ref/**
+fw/**
+**/node_modules/**
+rc
+*~
+*.swp
+*.log
