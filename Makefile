@@ -27,18 +27,15 @@ KAITAI_URL = https://github.com/kaitai-io/$(KAITAI)/releases/download/$(KAITAI_V
 F += $(wildcard lib/*.fs)
 
 # all
-.PHONY: all lab
+.PHONY: build all test lab
 all:
+build: $(F) $(MODULE).*proj
+	$(DOT) $@
+test: $(F) $(MODULE).*proj
+	$(DOT) $@
+
 lab: $(LAB)
 	$^
-
-.PHONY: build
-build: $(F) $(MODULE).*proj
-	dotnet build
-
-.PHONY: test
-test: $(F) $(MODULE).*proj
-	dotnet test
 
 # format
 .PHONY: format
@@ -53,13 +50,19 @@ doc: doc/PDF_ISO_32000-2.pdf
 .PHONY: install update ref gz
 install: $(PY) $(PIP) $(LAB) $(DOT)
 	$(DOT) tool install -v d -g Microsoft.dotnet-interactive
-	$(DOT) tool list -g
+	$(DOT) tool restore
+	$(DOT) tool list ; $(DOT) tool list -g
 	mkdir -p ~/.local/share/jupyter/kernels
 	dotnet interactive jupyter install
 	$(JUPY) kernelspec list && dotnet --version
+	$(MAKE) update
 update: $(PY) $(PIP) $(LAB) $(DOT)
 	sudo apt update
 	sudo apt install -uy `cat apt.txt`
+	$(PIP) install -U -r requirements.txt
+
+tools:
+	$(DOT) tool list ; $(DOT) tool list -g
 
 $(LAB): $(PIP)
 	$(PIP) install -U -r requirements.txt
