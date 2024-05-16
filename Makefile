@@ -27,21 +27,15 @@ KAITAI_URL = https://github.com/kaitai-io/$(KAITAI)/releases/download/$(KAITAI_V
 F += $(wildcard lib/*.fs)
 
 # all
-.PHONY: all test lab
-all: $(F)
-	$(DOT) run
-test: $(F)
-	$(DOT) test
+.PHONY: build all test lab
+all:
+build: $(F) $(MODULE).*proj
+	$(DOT) $@
+test: $(F) $(MODULE).*proj
+	$(DOT) $@
+
 lab: $(LAB)
 	$^
-
-.PHONY: build
-build: $(F) $(MODULE).*proj
-	dotnet build
-
-.PHONY: test
-test: $(F) $(MODULE).*proj
-	dotnet test
 
 # format
 .PHONY: format

@@ -4,9 +4,9 @@
     <RuntimeIdentifiers>linux-x64</RuntimeIdentifiers>
     <TargetFramework>net8.0</TargetFramework>
     <!-- <OutputType>Exe</OutputType> -->
-    <IsPackable>false</IsPackable>
+    <!-- <IsPackable>false</IsPackable> -->
     <GenerateProgramFile>false</GenerateProgramFile>
-    <IsTestProject>true</IsTestProject>
+    <!-- <IsTestProject>true</IsTestProject> -->
   </PropertyGroup>
 
   <ItemGroup>
