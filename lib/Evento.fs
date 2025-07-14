@@ -384,6 +384,18 @@ let cross:unit = //
     arch
     os
 
+let vscode:unit = //
+    mkdir ".vscode"
+    let jsons = [
+        "c_cpp_properties";
+        "extensions";
+        "launch";
+        "settings";
+        "tasks" ]
+    for j in jsons do
+        File.WriteAllText($".vscode/{j}.json","{\n}\n")
+    settings ; tasks
+
 let settings:unit = //
     File.WriteAllText ( ".vscode/settings.json","""{
     "files.exclude": {
@@ -459,18 +471,7 @@ let tasks:unit = //
 }
 """)
 
-let vscode:unit = //
-    mkdir ".vscode"
-    let jsons = [
-        "c_cpp_properties";
-        "extensions";
-        "launch";
-        "settings";
-        "tasks" ]
-    for j in jsons do
-        File.WriteAllText($".vscode/{j}.json","{\n}\n")
-    settings ; tasks
-    let MELD = "meld .vscode ~/em/.vscode"
+let MELD = "meld .vscode ~/em/.vscode"
 
 let dirs:unit = //
     bin
