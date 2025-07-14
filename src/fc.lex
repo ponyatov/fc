@@ -17,8 +17,8 @@ char* yyfile = nullptr;
 <BLOCKCOMMENT>"*/"  {BEGIN(INITIAL);}
 <BLOCKCOMMENT>.     {}
 
-"nop"           CMD(CMD0,Op::nop )
-"halt"          CMD(CMD0,Op::halt)
+"nop"           { yylval.cmd0 = Op::nop ; return CMD0; }
+"halt"          { yylval.cmd0 = Op::halt; return CMD0; }
 
 [ \t\r\n]+      {}              // drop spaces
 .               {yyerror("");}  // lexer error on any undetected char

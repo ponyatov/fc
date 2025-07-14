@@ -8,7 +8,7 @@
 %%
 syntax: | syntax cmd ;
 
-cmd: CMD0 ;
+cmd: CMD0 { fprintf(stderr,"cmd0:%x\n",$1); } ;
 
 %%
 void yyerror(char *msg) {

@@ -80,5 +80,4 @@ extern FILE *yyin;
 extern int yyparse();
 extern void yyerror(char *msg);
 #include "fc.yacc.hpp"
-#define CMD(X,OP) { yylval.cmd0 = OP; return X; }
 /// @}
