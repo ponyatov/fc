@@ -57,6 +57,17 @@ extern addr R[Rsz];  ///< return stack
 extern cell D[Dsz];  ///< data stack
 /// @}
 
+/// @defgroup cmd cmd
+/// @ingroup vm
+/// @{
+
+enum class Op {
+    nop = 0x00,
+    halt = 0xFF,
+};
+
+/// @}
+
 /// @defgroup parser parser
 /// @brief syntax parser
 /// @ingroup flang
@@ -69,4 +80,5 @@ extern FILE *yyin;
 extern int yyparse();
 extern void yyerror(char *msg);
 #include "fc.yacc.hpp"
+#define CMD(X,OP) { yylval.cmd0 = OP; return X; }
 /// @}
