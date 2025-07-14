@@ -549,7 +549,7 @@ let mk: unit = //
 let cmake: unit = //
     touch "CMakeLists.txt"
     touch "CMakePresets.json"
-    mkdir "cmake"\
+    mkdir "cmake"
     let cmakes = ["any_toolchain"; "x86_64-linux-gnu"; "arm-none-eabi";
         "xtensa-lx106-elf"; "aarch64-linux-gnu"; "i686-w64-mingw32";
         "syntax"; "FindLEMON"; "FindRAGEL"; "FindReadline";
