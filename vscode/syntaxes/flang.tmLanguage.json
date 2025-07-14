@@ -7,6 +7,9 @@
             "include": "#comments"
         },
         {
+            "include": "#commands"
+        },
+        {
             "include": "#keywords"
         },
         {
@@ -28,6 +31,14 @@
                     "name": "comment.block.flang",
                     "begin": "/[*]",
                     "end": "[*]/"
+                }
+            ]
+        },
+        "commands": {
+            "patterns": [
+                {
+                    "name": "keyword.mnemonic.flang.assembly",
+                    "match": "\\b(nop)\\b"
                 }
             ]
         },
