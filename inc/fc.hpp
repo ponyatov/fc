@@ -24,6 +24,7 @@ extern void arg(int argc, char *argv);
 /// interpreter)
 
 /// @defgroup types types
+/// @brief narrow types for MCUs
 /// @details These types were especially narrowed for using in low- and mid-end
 /// microcontrollers:
 /// - 16-bit math is inconvenient for most cases, so we use `i32` @ref cell for
@@ -50,6 +51,7 @@ const byte Dsz = (uint8_t)0x10;    ///< @ref D ata stack size, @ref cell[]s
 /// @}
 
 /// @defgroup memory memory
+/// @brief & @ref vm registers
 /// @ingroup vm
 /// @{
 extern byte M[Msz];  ///< main memory
@@ -57,9 +59,38 @@ extern addr Cp;      ///< compiler pointer
 extern addr Ip;      ///< instruction pointer
 extern addr R[Rsz];  ///< return stack
 extern cell D[Dsz];  ///< data stack
+
+enum class Op;
+/// @brief bytecode memory header (first bytes of @ref M)
+struct HEAD {
+    Op _jmp;      ///< @brief @ref entry jump
+    addr entry;   ///< @brief = @ref Ip : program entry point
+    addr latest;  ///< @brief Field Area of latest item in vocabulary
+                  ///<        (zero if no vocabulary used)
+    addr free;    ///< @brief heap = @ref Cp : free memory blocks list
+    addr used;    ///< @brief heap: used memory blocks list
+};
+
+extern void head_sync();  ///< syncronize @ref vm registers -> @ref HEAD
+
+/// @}
+
+/// @defgroup allocator allocator
+/// @ingroup flang
+/// @brief dynamic memory allocator
+/// @{
+
+/// header for memory blocks allocated at top of @ref M
+struct Alloc {
+    addr next;  ///< next block in chain
+    addr size;  ///< block size, bytes
+    addr ref;   ///< ref counter (0xFFFF for locked blocks)
+};
+
 /// @}
 
 /// @defgroup cmd cmd
+/// @brief command set
 /// @ingroup vm
 /// @{
 
@@ -81,8 +112,9 @@ extern char *opName[];
 /// @defgroup compiler compiler
 /// @{
 
-extern addr C(Op); ///< compile @ref Op
-extern addr C(cell); ///< compile @ref cell
+extern bool compile;  ///< compiling state marker
+extern addr C(Op);    ///< compile @ref Op
+extern addr C(cell);  ///< compile @ref cell
 
 /// @}
 
@@ -90,12 +122,12 @@ extern addr C(cell); ///< compile @ref cell
 /// @brief syntax parser
 /// @ingroup flang
 /// @{
-extern int yylex();
-extern int yylineno;
-extern char *yytext;
-extern char *yyfile;
-extern FILE *yyin;
-extern int yyparse();
-extern void yyerror(char *msg);
-#include "fc.yacc.hpp"
+extern int yylex();              ///< lexer
+extern char *yytext;             ///< token value
+extern int yylineno;             ///< current line number
+extern char *yyfile;             ///< current file name
+extern FILE *yyin;               ///< current file file handler
+extern int yyparse();            ///< parser
+extern void yyerror(char *msg);  ///< syntax error callback
+#include "fc.yacc.hpp"           //   generated tokens definitions
 /// @}

@@ -1,3 +1,5 @@
+/** @file
+    @brief parser & syntax-directed @ref compiler */
 %{
 #include "fc.hpp"
 %}

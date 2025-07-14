@@ -1,3 +1,6 @@
+/** @file
+    @brief Linux-hosted Virtual Machine */
+
 #include "fc.hpp"
 
 int main(int argc, char *argv[]) {
@@ -23,12 +26,14 @@ byte M[Msz];
 
 addr Cp = 0, Ip = 0;
 
-addr C(Op op) {  //
+bool compile = true;  // default: start in @ref compile state
+
+addr C(Op op) {
     *(Op *)(&M[Cp]) = op;
     return Cp += sizeof(op);
 }
 
-addr C(cell n) {  //
+addr C(cell n) {
     *(cell *)(&M[Cp]) = n;
     return Cp += sizeof(n);
 }

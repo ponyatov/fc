@@ -1,3 +1,5 @@
+/** @file
+    @brief lexer */
 %{
 #include "fc.hpp"
 char* yyfile = nullptr;
