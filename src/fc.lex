@@ -6,4 +6,5 @@ char* yyfile = nullptr;
 %option noyywrap yylineno
 
 %%
-. {yyerror("");} // lexer error on any undetected char
+"//"[^\n]*  {}              // line comment
+.           {yyerror("");}  // lexer error on any undetected char

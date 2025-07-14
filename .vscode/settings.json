@@ -14,7 +14,7 @@
         "*.kernel": "properties", "*.config": "properties",
         "*.service": "systemd-unit-file",
         "requirements.*": "properties",
-        "*.ini": "properties", "*.f": "properties",
+        "*.ini": "flang", "*.f": "flang",
     },
 
     // editor
