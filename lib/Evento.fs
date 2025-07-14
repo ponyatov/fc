@@ -573,7 +573,6 @@ qemu-system-x86
     g++-mingw-w64-i686
 """)
 
-
 let clang_format:unit = //
     File.WriteAllText (".clang-format","""BasedOnStyle: Google
 IndentWidth:  4
