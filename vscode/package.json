@@ -1,27 +1,38 @@
 {
-  "name": "flang",
-  "displayName": "flang",
-  "description": "bytecode compiler for embedded systems",
-  "version": "0.0.1",
-  "publisher": "dponyatov",
-  "license": "MIT",
-  "engines": {
-    "vscode": "^1.102.0"
-  },
-  "categories": [
-    "Programming Languages"
-  ],
-  "contributes": {
-    "languages": [{
-      "id": "flang",
-      "aliases": ["Flang", "flang"],
-      "extensions": [".ini",".f"],
-      "configuration": "./language-configuration.json"
-    }],
-    "grammars": [{
-      "language": "flang",
-      "scopeName": "source.flang",
-      "path": "./syntaxes/flang.tmLanguage.json"
-    }]
-  }
+    "name": "flang",
+    "displayName": "flang",
+    "description": "bytecode compiler for embedded systems",
+    "version": "0.0.1",
+    "publisher": "dponyatov",
+    "license": "MIT",
+    "icon": "logo.png",
+    "engines": {
+        "vscode": "^1.102.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "flang",
+                "aliases": [
+                    "Flang",
+                    "flang"
+                ],
+                "extensions": [
+                    ".ini",
+                    ".f"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "flang",
+                "scopeName": "source.flang",
+                "path": "./syntaxes/flang.tmLanguage.json"
+            }
+        ]
+    }
 }
