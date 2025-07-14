@@ -3,6 +3,8 @@
   "displayName": "flang",
   "description": "bytecode compiler for embedded systems",
   "version": "0.0.1",
+  "publisher": "dponyatov",
+  "license": "MIT",
   "engines": {
     "vscode": "^1.102.0"
   },
