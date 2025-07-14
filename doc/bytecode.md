@@ -36,3 +36,4 @@ https://stackoverflow.com/questions/48144/what-are-advantages-of-bytecode-over-n
 
 - 16-bit @ref addr esses is enough for MCU-specific domains but makes control transfer commands 2x shorter
 - every bytecode process runs in its own virtual @ref M emory
+- I/O and real memory available only using special syscall-like commands
