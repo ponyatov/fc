@@ -129,11 +129,62 @@ let lib:unit = //
 
 let cpp: unit = //
     mkdir "inc"
-    touch $"inc/{app}.hpp"
+    File.WriteAllText ($"inc/{app}.hpp","""#pragma once
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <assert.h>
+
+extern int main(int argc, char *argv[]);
+extern void arg(int argc, char *argv);
+
+extern int yylex();
+extern int yylineno;
+extern char *yytext;
+extern char *yyfile;
+extern FILE *yyin;
+extern int yyparse();
+extern void yyerror(char *msg);
+""")
     mkdir "src"
-    touch $"src/{app}.cpp"
-    touch $"src/{app}.lex"
-    touch $"src/{app}.yacc"
+    let include = $"#include \"{app}.hpp\""
+    File.WriteAllText ($"src/{app}.cpp",include + """
+
+int main(int argc, char *argv[]) {
+    arg(0, argv[0]);
+    for (int i = 1; i < argc; i++) {  //
+        arg(i, argv[i]);
+    }
+    return 0;
+}
+
+void arg(int argc, char *argv) {  //
+    fprintf(stderr, "arg[%i] = <%s>\n", argc, argv);
+}
+""")
+    File.WriteAllText ($"src/{app}.lex","%{\n"+include+ """
+char* yyfile = nullptr;
+%}
+
+%option noyywrap yylineno
+
+%%
+. {yyerror("");} // lexer error on any undetected char
+""")
+    File.WriteAllText ($"src/{app}.yacc","%{\n"+include+ """
+%}
+
+%defines %union { char c; char* s; int n; float f; }
+
+%%
+syntax:
+
+%%
+void yyerror(char *msg) {
+    fprintf(stderr, "\n\n%s:%i %s [%s]\n\n", yyfile, yylineno, msg, yytext);
+    exit(-1);
+}
+""")
 
 let cargo_config:unit = //
     mkdir ".cargo"
