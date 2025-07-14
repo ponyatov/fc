@@ -5,6 +5,7 @@
 - https://habr.com/ru/companies/badoo/articles/428878/
 - https://habr.com/ru/articles/757998/
 - [[vm/Virtual Machine Showdown Stack Versus Registers]]
+- https://youtu.be/ZID0IJiOJdE?si=ldceIoDW9D5m4TaA
 
 ## advantages of bytecode over native machine code
 
