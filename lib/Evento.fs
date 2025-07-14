@@ -312,12 +312,12 @@ let hw:unit = //
 
     for hw,cpu in [
         ("pc","i5");
-        ("qemu386","i486"); ("retro","i686");
-        ("rpi3","bcm2837"); ("rpi4","bcm2711"); ("rpi5","bcm2712"); ("opi800","rk3399");
-        ("pillf103","stm32f103c8"); ("f429disco","stm32f429zi");
-        ("netduinoplus2","stm32f405rg");
-        ("iskra","stm32f405rg"); ("f4disco","stm32f407vg");
-        ("esp8266","lx106"); ("esp32","lx106");
+        // ("qemu386","i486"); ("retro","i686");
+        // ("rpi3","bcm2837"); ("rpi4","bcm2711"); ("rpi5","bcm2712"); ("opi800","rk3399");
+        // ("pillf103","stm32f103c8"); ("f429disco","stm32f429zi");
+        // ("netduinoplus2","stm32f405rg");
+        // ("iskra","stm32f405rg"); ("f4disco","stm32f407vg");
+        // ("esp8266","lx106"); ("esp32","lx106");
         ] do
             mkdir $"hw/{hw}"
             File.WriteAllText ($"hw/{hw}/{hw}.mk",$"CPU = {cpu}")
@@ -332,10 +332,10 @@ let cpu:unit = //
 
     for cpu,arch in [
         ("i5","x86_64");
-        ("i486","i386"); ("i686","i386");
-        ("stm32f103c8","cortexm3"); ("stm32f429zi","cortexm4");
-        ("stm32f405rg","cortexm4"); ("stm32f407vg","cortexm4");
-        ("lx106","xtensa");
+        // ("i486","i386"); ("i686","i386");
+        // ("stm32f103c8","cortexm3"); ("stm32f429zi","cortexm4");
+        // ("stm32f405rg","cortexm4"); ("stm32f407vg","cortexm4");
+        // ("lx106","xtensa");
         ] do
             mkdir $"cpu/{cpu}"
             File.WriteAllText ($"cpu/{cpu}/{cpu}.mk",$"ARCH = {arch}")
@@ -350,10 +350,10 @@ let arch:unit = //
 
     for arch in [
         "x86_64";
-        "i386";
-        "aarch64";
-        "cortexm"; "cortexm3"; "cortexm4";
-        "xtensa";
+        // "i386";
+        // "aarch64";
+        // "cortexm"; "cortexm3"; "cortexm4";
+        // "xtensa";
         ] do
             mkdir $"arch/{arch}"
             touch $"arch/{arch}/{arch}.mk"
@@ -367,11 +367,11 @@ let os:unit = //
     cross_ "os"
     for os in [
         "linux";
-        "none";
-        "freertos";
-        "win32";
-        "rtos8266";
-        "idf"
+        // "none";
+        // "freertos";
+        // "win32";
+        // "rtos8266";
+        // "idf"
     ] do
         mkdir $"os/{os}" ; touch $"os/{os}/{os}.mk" ; touch $"os/{os}/{os}.cmake"
         mkdir $"os/{os}/inc" ; mkdir $"os/{os}/src"
