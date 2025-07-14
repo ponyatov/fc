@@ -31,7 +31,7 @@
             {
                 "language": "flang",
                 "scopeName": "source.flang",
-                "path": "./syntaxes/flang.tmLanguage.json"
+                "path": "./flang.tmLanguage.json"
             }
         ]
     }
