@@ -16,3 +16,19 @@ int main(int argc, char *argv[]) {
 void arg(int argc, char *argv) {  //
     fprintf(stderr, "arg[%i] = <%s>\n", argc, argv);
 }
+
+char *opName[] = {"nop", "halt", "jmp", "jnz", "call", "ret"};
+
+byte M[Msz];
+
+addr Cp = 0, Ip = 0;
+
+addr C(Op op) {  //
+    *(Op *)(&M[Cp]) = op;
+    return Cp += sizeof(op);
+}
+
+addr C(cell n) {  //
+    *(cell *)(&M[Cp]) = n;
+    return Cp += sizeof(n);
+}

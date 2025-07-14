@@ -53,6 +53,8 @@ const byte Dsz = (uint8_t)0x10;    ///< @ref D ata stack size, @ref cell[]s
 /// @ingroup vm
 /// @{
 extern byte M[Msz];  ///< main memory
+extern addr Cp;      ///< compiler pointer
+extern addr Ip;      ///< instruction pointer
 extern addr R[Rsz];  ///< return stack
 extern cell D[Dsz];  ///< data stack
 /// @}
@@ -61,10 +63,26 @@ extern cell D[Dsz];  ///< data stack
 /// @ingroup vm
 /// @{
 
+/// @brief command opcode
 enum class Op {
-    nop = 0x00,
-    halt = 0xFF,
+    nop,   ///< `( -- )` do nothing
+    halt,  ///< `( -- )` stop process
+    jmp,   ///< `( -- )` unconditional jump
+    jnz,   ///< `( -- )` conditional jump
+    call,  ///< `(R: -- addr )` nested call
+    ret,   ///< `(R: addr -- )` return from nested call
 };
+
+/// @brief opcode names table
+extern char *opName[];
+
+/// @}
+
+/// @defgroup compiler compiler
+/// @{
+
+extern addr C(Op); ///< compile @ref Op
+extern addr C(cell); ///< compile @ref cell
 
 /// @}
 
