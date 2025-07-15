@@ -79,6 +79,18 @@ LoopCopyDataInit:
   ldr r0, =_sxram
   ldr r1, =_exram
   ldr r2, =_sixram
+  movs r3, #0
+  b LoopCopyXRAMInit
+
+CopyXRAMInit:
+  ldr r4, [r2, r3]
+  str r4, [r0, r3]
+  adds r3, r3, #4
+
+LoopCopyXRAMInit:
+  adds r4, r0, r3
+  cmp r4, r1
+  bcc CopyXRAMInit
 
 /* Zero fill the bss segment. */
   ldr r2, =_sbss
