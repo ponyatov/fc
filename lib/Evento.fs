@@ -382,8 +382,7 @@ let hw:unit = //
         mkdir $"hw/{hw}"
         File.WriteAllText ($"hw/{hw}/{hw}.mk",$"CPU = {cpu}")
         touch $"hw/{hw}/{hw}.cmake"
-        mkdir $"hw/{hw}/inc"
-        mkdir $"hw/{hw}/src"
+        mkdir $"hw/{hw}/inc" ; mkdir $"hw/{hw}/src"
         touch $"hw/{hw}/src/{hw}.cpp"
         File.WriteAllText ($"hw/{hw}/inc/{hw}.hpp",$"/// @defgroup {hw} {hw}\n/// @ingroup hw\n")
 
@@ -407,14 +406,15 @@ gdb_flash_program enable
 let cpu:unit = //
     cross_ "cpu"
 
-    for _hw,cpu,arch in targets do
-            mkdir $"cpu/{cpu}"
-            File.WriteAllText ($"cpu/{cpu}/{cpu}.mk",$"ARCH = {arch}")
-            touch $"cpu/{cpu}/{cpu}.cmake"
-            mkdir $"cpu/{cpu}/inc"
-            mkdir $"cpu/{cpu}/src"
-            File.WriteAllText ( $"cpu/{cpu}/inc/{cpu}.hpp",$"/// @defgroup {cpu} {cpu}\n/// @ingroup cpu\n")
-            File.WriteAllText ( $"cpu/{cpu}/src/{cpu}.cpp",$"#include \"{cpu}.hpp\"\n")
+    let cpu_ cpu arch = //
+        mkdir $"cpu/{cpu}"
+        File.WriteAllText ($"cpu/{cpu}/{cpu}.mk",$"ARCH = {arch}")
+        touch $"cpu/{cpu}/{cpu}.cmake"
+        mkdir $"cpu/{cpu}/inc" ; mkdir $"cpu/{cpu}/src"
+        File.WriteAllText ( $"cpu/{cpu}/inc/{cpu}.hpp",$"/// @defgroup {cpu} {cpu}\n/// @ingroup cpu\n")
+        File.WriteAllText ( $"cpu/{cpu}/src/{cpu}.cpp",$"#include \"{cpu}.hpp\"\n")
+
+    for _hw,cpu,arch in targets do cpu_ cpu arch
 
 let arch:unit = //
     cross_ "arch"

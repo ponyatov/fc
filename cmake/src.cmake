@@ -18,6 +18,9 @@ file(GLOB C
      cpu/src/*.c*  cpu/${CPU}/src/*.c*
     arch/src/*.c* arch/${ARCH}/src/*.c*
       os/src/*.c*   os/${OS}/src/*.c*
+    # CortexM/CubeMX
+    hw/${HW}/Core/Src/*.c*
+    hw/${HW}/Drivers/${SERIES}xx_HAL_Driver/Src/*.c*
 )
 
 file(GLOB H
@@ -28,6 +31,10 @@ file(GLOB H
      cpu/inc/*.h*  cpu/${CPU}/inc/*.h*
     arch/inc/*.h* arch/${ARCH}/inc/*.h*
       os/inc/*.h*   os/${OS}/inc/*.h*
+    # CortexM/CubeMX
+    hw/${HW}/Core/Inc/*.h*
+    hw/${HW}/Drivers/${SERIES}xx_HAL_Driver/Inc/*.h*
+    hw/${HW}/Drivers/CMSIS/Device/ST/${SERIES}xx/Include/*.h*
 )
 
 file(GLOB INC
@@ -39,5 +46,9 @@ file(GLOB INC
      cpu/inc  cpu/${CPU}/inc
     arch/inc arch/${ARCH}/inc
       os/inc   os/${OS}/inc
+    # CortexM/CubeMX
+    hw/${HW}/Core/Inc
+    hw/${HW}/Drivers/${SERIES}xx_HAL_Driver/Inc
+    hw/${HW}/Drivers/CMSIS/Device/ST/${SERIES}xx/Include
 )
 include_directories(${INC})
