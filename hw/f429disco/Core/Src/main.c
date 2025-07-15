@@ -77,6 +77,7 @@ static void MX_USART1_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+#include "sdram.h"
 extern void initialise_monitor_handles(void); // rdimon
 /* USER CODE END 0 */
 
