@@ -16,6 +16,6 @@ extern uint8_t hello[] __attribute__((section(".xram")));
 // #define TRP(x) (x << 20)  /* Row precharge delay */
 // #define TRCD(x) (x << 24) /* Row to column delay */
 
-// extern void SDRAM_Init();
+extern void SDRAM_Init(void);
 
 #endif  // __SDRAM_H_
