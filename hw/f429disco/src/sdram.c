@@ -4,9 +4,20 @@ uint8_t hello[] __attribute__((section(".xram"))) = "Hello XRAM";
 
 /// https://en.radzio.dxp.pl/stm32f429idiscovery/sdram.html
 void SDRAM_Init(void) {
+    __IO uint32_t tmp = 0x00;
 
-    // // Enable clock for FMC
-    // RCC->AHB3ENR |= RCC_AHB3ENR_FMCEN;
+    /* (re)Enable GPIOD..GPIOG, /GPIOH /GPIOI interface clock */
+    tmp = RCC_AHB1ENR_GPIODEN | RCC_AHB1ENR_GPIOEEN | RCC_AHB1ENR_GPIOFEN |
+          RCC_AHB1ENR_GPIOGEN;  // RCC_AHB1ENR_GPIOHEN | RCC_AHB1ENR_GPIOIEN;
+    RCC->AHB1ENR |= tmp;        // 0x000001F8;
+    /* Delay after an RCC peripheral clock enabling */
+    tmp = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOCEN);
+
+    /* Enable the FMC interface clock */
+    RCC->AHB3ENR |= RCC_AHB3ENR_FMCEN;  // 0x00000001
+    /* Delay after an RCC peripheral clock enabling */
+    tmp = READ_BIT(RCC->AHB3ENR, RCC_AHB3ENR_FMCEN);
+
     // // Initialization step 1
     // FMC_Bank5_6->SDCR[0] =
     //     FMC_SDCR1_SDCLK_1 | FMC_SDCR1_RBURST | FMC_SDCR1_RPIPE_1;
@@ -40,6 +51,7 @@ void SDRAM_Init(void) {
     // FMC_Bank5_6->SDRTR |= (683 << 1);
     // while (FMC_Bank5_6->SDSR & FMC_SDSR_BUSY)
     //     ;
+    (void)(tmp);
 
     uint8_t* s = &_sxram;
     uint8_t* e = &_exram;
