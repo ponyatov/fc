@@ -31,6 +31,24 @@
             "group"          : {"kind": "build", "isDefault": true}
         },
         {
+            "label"          : "openocd: debug",
+            "type"           : "shell",
+            // "dependsOn"      : "CMake: build",
+            "command"        : "openocd -f hw/${command:cmake.activeConfigurePresetName}/${command:cmake.activeConfigurePresetName}.ocd",
+            "problemMatcher" : [],
+            "presentation"   : {"showReuseMessage": false, "focus": false, "reveal": "silent", "close": true},
+            "group"          : {"kind": "build", "isDefault": true }
+        },
+        {
+            "label"          : "openocd: firmware",
+            "type"           : "shell",
+            "dependsOn"      : "CMake: build",
+            "command"        : "openocd -f hw/${command:cmake.activeConfigurePresetName}/${command:cmake.activeConfigurePresetName}.ocd -c \"program ${command:cmake.launchTargetPath} verify reset exit\"",
+            "problemMatcher" : [],
+            "presentation"   : {"showReuseMessage": false, "focus": true, "reveal": "silent", "close": false},
+            "group"          : {"kind": "build", "isDefault": true }
+        },
+        {
             "label"          : "doxy: gen",
             "type"           : "shell",
             "group"          : {"kind": "build", "isDefault": true },
