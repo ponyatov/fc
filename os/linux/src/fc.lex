@@ -33,7 +33,7 @@ alnum [a-zA-Z_]
 
 {s}?{n}+        { yylval.n = atoi(yytext); return INT; }
 
-{alpha}{alnum}* { yylval.s = yytext; return ID; }
+{alpha}{alnum}* { yylval.s = new std::string(yytext); return ID; }
 
 [ \t\r\n]+      {}              // drop spaces
 .               {yyerror("");}  // lexer error on any undetected char

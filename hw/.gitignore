@@ -1,2 +1,4 @@
 .mxproject
+*.orig
+*.rej
 !.gitignore

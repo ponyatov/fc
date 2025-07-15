@@ -113,7 +113,7 @@ enum class Op {
 };
 
 /// @brief opcode names table
-extern char *opName[];
+extern const char *opName[];
 
 /// @}
 
@@ -137,12 +137,12 @@ extern addr lookup(char *label);  ///< lookup label in symbol table
 /// @brief syntax parser
 /// @ingroup flang
 /// @{
-extern int yylex();              ///< lexer
-extern char *yytext;             ///< token value
-extern int yylineno;             ///< current line number
-extern char *yyfile;             ///< current file name
-extern FILE *yyin;               ///< current file file handler
-extern int yyparse();            ///< parser
-extern void yyerror(char *msg);  ///< syntax error callback
-#include "fc.yacc.hpp"           //   generated tokens definitions
+extern int yylex();                    ///< lexer
+extern char *yytext;                   ///< token value
+extern int yylineno;                   ///< current line number
+extern char *yyfile;                   ///< current file name
+extern FILE *yyin;                     ///< current file file handler
+extern int yyparse();                  ///< parser
+extern void yyerror(const char *msg);  ///< syntax error callback
+#include "fc.yacc.hpp"                 //   generated tokens definitions
 /// @}

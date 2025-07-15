@@ -4,7 +4,7 @@
 #include "fc.hpp"
 %}
 
-%defines %union { char c; string *s; int n; float f; Op cmd; }
+%defines %union { char c; std::string *s; int n; float f; Op cmd; }
 
 %token<cmd> CMD0 CMD1
 %token<n> INT OCT HEX BIN

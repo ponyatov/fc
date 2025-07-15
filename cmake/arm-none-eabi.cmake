@@ -26,7 +26,6 @@ add_compile_options(
 
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 add_link_options(
-    -mthumb
     -T ${LD} --specs=nano.specs
     # -T ${LD} --specs=rdimon.specs -lrdimon
     -Wl,--start-group -lc -lm -lnosys   -Wl,--end-group

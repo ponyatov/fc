@@ -1,5 +1,5 @@
---- STM32F429ZITx_FLASH.ld	2025-07-15 13:10:54.642879940 +0400
-+++ STM32F429ZITx_FLASH.ld.fix	2025-07-15 13:14:53.318871102 +0400
+--- STM32F429ZITx_FLASH.ld	2025-07-15 14:09:39.426749428 +0400
++++ STM32F429ZITx_FLASH.ld.fix	2025-07-15 14:08:48.414751317 +0400
 @@ -1,69 +1,26 @@
  /*
  ******************************************************************************
@@ -123,7 +123,7 @@
  
    /* User_heap_stack section, used to check that there is enough RAM left */
    ._user_heap_stack :
-@@ -191,18 +147,27 @@
+@@ -191,18 +147,26 @@
      . = . + _Min_Heap_Size;
      . = . + _Min_Stack_Size;
      . = ALIGN(8);
@@ -138,9 +138,8 @@
 +  {
 +    . = ALIGN(0x10);
 +    _sxram = .;       /* create a global symbol at xram start */
-+    KEEP *(.xram)
-+    KEEP *(.xram*)
-+
++    KEEP (*(.xram ))
++    KEEP (*(.xram*))
 +    . = ALIGN(0x10);
 +    _exram = .;       /* create a global symbol at xram end */
 +  } > XRAM AT> FLASH

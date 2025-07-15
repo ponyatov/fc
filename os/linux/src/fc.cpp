@@ -20,7 +20,7 @@ void arg(int argc, char *argv) {  //
     fprintf(stderr, "arg[%i] = <%s>\n", argc, argv);
 }
 
-char *opName[] = {"nop", "halt", "jmp", "jnz", "call", "ret"};
+const char *opName[] = {"nop", "halt", "jmp", "jnz", "call", "ret"};
 
 byte M[Msz];
 
@@ -42,9 +42,7 @@ std::map<std::string, addr> label;
 std::map<std::string, std::vector<addr>> forward;
 
 addr lookup(char *label) {
-    auto it = label.find(label);
-    if (it != label.end()) {
-        return it->second;
-    }
+    // auto it = label.find(label);
+    // if (it != label.end()) { return it->second; }
     return 0;
 }
