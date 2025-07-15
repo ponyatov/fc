@@ -429,6 +429,7 @@ let arch:unit = //
         File.WriteAllText ( $"arch/{arch}/src/{arch}.cpp",$"#include \"{arch}.hpp\"\n")
 
     for _hw,_cpu,arch in targets do arch_ arch
+    arch_ "cortexm"
 
 let os:unit = //
     cross_ "os"
