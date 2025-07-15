@@ -566,7 +566,7 @@ void SystemInit_ExtMemCtl(void)
   
 /*-- FMC Configuration -------------------------------------------------------*/
   /* Enable the FMC interface clock */
-  RCC->AHB3ENR |= 0x00000001;
+  RCC->AHB3ENR |= RCC_AHB3ENR_FMCEN; // 0x00000001
   /* Delay after an RCC peripheral clock enabling */
   tmp = READ_BIT(RCC->AHB3ENR, RCC_AHB3ENR_FMCEN);
 
