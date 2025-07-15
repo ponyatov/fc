@@ -363,19 +363,22 @@ let cross_ name = //
     File.WriteAllText ($"{name}/inc/{name}.hpp",$"{hd}/// @defgroup {name} {name}\n/// @ingroup cross\n")
     File.WriteAllText ($"{name}/src/{name}.cpp",$"#include \"{name}.hpp\"\n")
 
+let targets = [
+    ("pc","i5","x86_64");
+    // ("qemu386","i486","i386"); ("retro","i686","i386");
+    // ("opi800","rk3399","aarch64"); ("rpi3","bcm2837","aarch64");
+    // ("rpi4","bcm2711","aarch64"); ("rpi5","bcm2712","aarch64");
+    // ("pillf103","stm32f103c8","cortexm3");
+    ("f429disco","stm32f429zi","cortexm4");
+    // ("netduinoplus2","stm32f405rg","cortexm4");
+    // ("iskra","stm32f405rg","cortexm4"); ("f4disco","stm32f407vg","cortexm4");
+    // ("esp8266","lx106","xtensa"); ("esp32","lx106","xtensa");
+]
+
 let hw:unit = //
     cross_ "hw"
 
-    for hw,cpu in [
-        ("pc","i5");
-        // ("qemu386","i486"); ("retro","i686");
-        // ("rpi3","bcm2837"); ("rpi4","bcm2711"); ("rpi5","bcm2712"); ("opi800","rk3399");
-        // ("pillf103","stm32f103c8");
-        ("f429disco","stm32f429zi");
-        // ("netduinoplus2","stm32f405rg");
-        // ("iskra","stm32f405rg"); ("f4disco","stm32f407vg");
-        // ("esp8266","lx106"); ("esp32","lx106");
-        ] do
+    for hw,cpu,arch in targets do
             mkdir $"hw/{hw}"
             File.WriteAllText ($"hw/{hw}/{hw}.mk",$"CPU = {cpu}")
             touch $"hw/{hw}/{hw}.cmake"
@@ -383,18 +386,14 @@ let hw:unit = //
             mkdir $"hw/{hw}/src"
             touch $"hw/{hw}/src/{hw}.cpp"
             File.WriteAllText ($"hw/{hw}/inc/{hw}.hpp",$"/// @defgroup {hw} {hw}\n/// @ingroup hw\n")
+            match arch with
+            | c where c = "cortexm4" -> File.WriteAllText($"hw/{hw}/{hw}.ocd","")
+            | _ -> ()
 
 let cpu:unit = //
     cross_ "cpu"
 
-    for cpu,arch in [
-        ("i5","x86_64");
-        // ("i486","i386"); ("i686","i386");
-        // ("stm32f103c8","cortexm3");
-        ("stm32f429zi","cortexm4");
-        // ("stm32f405rg","cortexm4"); ("stm32f407vg","cortexm4");
-        // ("lx106","xtensa");
-        ] do
+    for _hw,cpu,arch in targets do
             mkdir $"cpu/{cpu}"
             File.WriteAllText ($"cpu/{cpu}/{cpu}.mk",$"ARCH = {arch}")
             touch $"cpu/{cpu}/{cpu}.cmake"
@@ -406,13 +405,7 @@ let cpu:unit = //
 let arch:unit = //
     cross_ "arch"
 
-    for arch in [
-        "x86_64";
-        // "i386";
-        // "aarch64";
-        // "cortexm"; "cortexm3"; "cortexm4";
-        // "xtensa";
-        ] do
+    for _hw,_cpu,arch in targets do
             mkdir $"arch/{arch}"
             touch $"arch/{arch}/{arch}.mk"
             touch $"arch/{arch}/{arch}.cmake"
