@@ -1,9 +1,6 @@
 # scan project for source code files
 
-file(GLOB LD
-    RELATIVE ${CMAKE_SOURCE_DIR}
-    hw/${HW}/*.ld
-)
+# file(GLOB LD -> cmake/any_toolchain.cmake
 
 file(GLOB S
     RELATIVE ${CMAKE_SOURCE_DIR}

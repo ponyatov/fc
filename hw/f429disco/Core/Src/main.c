@@ -78,7 +78,7 @@ static void MX_USART1_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+extern void initialise_monitor_handles(void); // rdimon
 /* USER CODE END 0 */
 
 /**
@@ -89,7 +89,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
+  initialise_monitor_handles(); // rdimon
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
