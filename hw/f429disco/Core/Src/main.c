@@ -127,9 +127,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   int n = 0;
   while (1) {
-      /* USER CODE END WHILE */
+    /* USER CODE END WHILE */
 
-      /* USER CODE BEGIN 3 */
+    /* USER CODE BEGIN 3 */
       HAL_Delay(1000);
       printf("%i ", n++);
   }
