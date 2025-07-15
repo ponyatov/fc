@@ -378,17 +378,31 @@ let targets = [
 let hw:unit = //
     cross_ "hw"
 
+    let hw_ hw cpu = //
+        mkdir $"hw/{hw}"
+        File.WriteAllText ($"hw/{hw}/{hw}.mk",$"CPU = {cpu}")
+        touch $"hw/{hw}/{hw}.cmake"
+        mkdir $"hw/{hw}/inc"
+        mkdir $"hw/{hw}/src"
+        touch $"hw/{hw}/src/{hw}.cpp"
+        File.WriteAllText ($"hw/{hw}/inc/{hw}.hpp",$"/// @defgroup {hw} {hw}\n/// @ingroup hw\n")
+
+    let ocd_ hw iface target = //
+        File.WriteAllText($"hw/{hw}/{hw}.ocd",$"gdb_port 12345
+source [find interface/{iface}.cfg]
+adapter   speed  1800
+transport select hla_swd
+source [find target/{target}.cfg]
+
+gdb_memory_map    enable
+gdb_flash_program enable
+")
+
     for hw,cpu,arch in targets do
-            mkdir $"hw/{hw}"
-            File.WriteAllText ($"hw/{hw}/{hw}.mk",$"CPU = {cpu}")
-            touch $"hw/{hw}/{hw}.cmake"
-            mkdir $"hw/{hw}/inc"
-            mkdir $"hw/{hw}/src"
-            touch $"hw/{hw}/src/{hw}.cpp"
-            File.WriteAllText ($"hw/{hw}/inc/{hw}.hpp",$"/// @defgroup {hw} {hw}\n/// @ingroup hw\n")
-            match arch with
-            | c where c = "cortexm4" -> File.WriteAllText($"hw/{hw}/{hw}.ocd","")
-            | _ -> ()
+        hw_ hw cpu
+        match arch with
+        | a when a = "cortexm4" -> ocd_ hw "stlink" "stm32f4x"
+        | _ -> ()
 
 let cpu:unit = //
     cross_ "cpu"
@@ -405,14 +419,16 @@ let cpu:unit = //
 let arch:unit = //
     cross_ "arch"
 
-    for _hw,_cpu,arch in targets do
-            mkdir $"arch/{arch}"
-            touch $"arch/{arch}/{arch}.mk"
-            touch $"arch/{arch}/{arch}.cmake"
-            mkdir $"arch/{arch}/inc"
-            mkdir $"arch/{arch}/src"
-            File.WriteAllText ( $"arch/{arch}/inc/{arch}.hpp",$"/// @defgroup {arch} {arch}\n/// @ingroup arch\n")
-            File.WriteAllText ( $"arch/{arch}/src/{arch}.cpp",$"#include \"{arch}.hpp\"\n")
+    let arch_ arch = //
+        mkdir $"arch/{arch}"
+        touch $"arch/{arch}/{arch}.mk"
+        touch $"arch/{arch}/{arch}.cmake"
+        mkdir $"arch/{arch}/inc"
+        mkdir $"arch/{arch}/src"
+        File.WriteAllText ( $"arch/{arch}/inc/{arch}.hpp",$"/// @defgroup {arch} {arch}\n/// @ingroup arch\n")
+        File.WriteAllText ( $"arch/{arch}/src/{arch}.cpp",$"#include \"{arch}.hpp\"\n")
+
+    for _hw,_cpu,arch in targets do arch_ arch
 
 let os:unit = //
     cross_ "os"
