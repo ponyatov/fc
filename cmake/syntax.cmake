@@ -9,28 +9,28 @@ find_package(BISON    REQUIRED)
 file(GLOB L
     RELATIVE ${CMAKE_SOURCE_DIR}
     src/*.lex
-    os/src/*.lex  os/*/src/*.lex
+    os/src/*.lex  os/${OS}/src/*.lex
     lib/src/*.lex lib/*/src/*.lex
 )
 
 file(GLOB Y
     RELATIVE ${CMAKE_SOURCE_DIR}
     src/*.yacc
-    os/src/*.yacc  os/*/src/*.yacc
+    os/src/*.yacc  os/${OS}/src/*.yacc
     lib/src/*.yacc lib/*/src/*.yacc
 )
 
 file(GLOB R
     RELATIVE ${CMAKE_SOURCE_DIR}
     src/*.ragel
-    os/src/*.ragel  os/*/src/*.ragel
+    os/src/*.ragel  os/${OS}/src/*.ragel
     lib/src/*.ragel lib/*/src/*.ragel
 )
 
 file(GLOB M
     RELATIVE ${CMAKE_SOURCE_DIR}
     src/*.lemon
-    os/src/*.lemon  os/*/src/*.lemon
+    os/src/*.lemon  os/${OS}/src/*.lemon
     lib/src/*.lemon lib/*/src/*.lemon
 )
 

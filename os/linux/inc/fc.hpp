@@ -1,6 +1,7 @@
 #pragma once
 
 /// @defgroup libc libc
+/// @ingroup lib
 /// @{
 #include <stdint.h>
 #include <stdlib.h>
@@ -19,8 +20,8 @@
 /// @defgroup main main
 /// @ingroup libc
 /// @{
-extern int main(int argc, char *argv[]);
-extern void arg(int argc, char *argv);
+extern int main(int argc, char *argv[]);  ///< POSIX entry point
+extern void arg(int argc, char *argv);    ///< print command line argument
 /// @}
 
 /// @defgroup flang F
@@ -104,32 +105,39 @@ struct Alloc {
 
 /// @brief command opcode
 enum class Op {
-    nop,   ///< `( -- )` do nothing
-    halt,  ///< `( -- )` stop process
-    jmp,   ///< `( -- )` unconditional jump
-    jnz,   ///< `( -- )` conditional jump
-    call,  ///< `(R: -- addr )` nested call
-    ret,   ///< `(R: addr -- )` return from nested call
+    nop = 0x00,   ///< `( -- )` do nothing
+    halt = 0xFF,  ///< `( -- )` stop process
+    jmp = 0x01,   ///< `( -- )` unconditional jump
+    jnz = 0x02,   ///< `( -- )` conditional jump
+    call = 0x03,  ///< `(R: -- addr )` nested call
+    ret = 0x04,   ///< `(R: addr -- )` return from nested call
 };
 
-/// @brief opcode names table
-extern const char *opName[];
+/// @brief opcode to command name
+extern const char *opName(Op op);
 
 /// @}
 
+/// @defgroup debug debug
+/// @ingroup flang
+/// @{
+extern bool trace;  ///< log @ref compiler / @ref vm operations
+/// @}
+
 /// @defgroup compiler compiler
+/// @ingroup flang
 /// @{
 
 extern bool compile;  ///< compiling state marker
 extern addr C(Op);    ///< compile @ref Op
 extern addr C(cell);  ///< compile @ref cell
 
-/// labels table
+/// known labels table
 extern std::map<std::string, addr> label;
 /// forward references table
 extern std::map<std::string, std::vector<addr>> forward;
 
-extern addr lookup(char *label);  ///< lookup label in symbol table
+extern addr lookup(std::string *label);  ///< lookup label in symbol table
 
 /// @}
 

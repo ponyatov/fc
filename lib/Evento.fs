@@ -124,7 +124,9 @@ PROJECT_LOGO           = doc/logo.png
     let DOTX = "meld .doxygen ~/em/.doxygen"
 
 let lib:unit = //
-    mkdir "lib"
+    mkdir "lib" ; mkdir "lib/inc" ; mkdir "lib/src"
+    File.WriteAllText("lib/inc/lib.hpp","/// @defgroup lib lib\n")
+    File.WriteAllText("lib/src/lib.cpp","#include \"lib.hpp\"\n")
     File.WriteAllText($"lib/{app}.ini", "// line comment\n")
 
 let cpp: unit = //

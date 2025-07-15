@@ -20,20 +20,40 @@ void arg(int argc, char *argv) {  //
     fprintf(stderr, "arg[%i] = <%s>\n", argc, argv);
 }
 
-const char *opName[] = {"nop", "halt", "jmp", "jnz", "call", "ret"};
+const char *opName(Op op) {
+    switch (op) {
+        case Op::nop:
+            return "nop";
+        case Op::halt:
+            return "halt";
+        case Op::jmp:
+            return "jmp";
+        case Op::jnz:
+            return "jnz";
+        case Op::call:
+            return "call";
+        case Op::ret:
+            return "ret";
+        default:
+            return "???";
+    }
+}
 
 byte M[Msz];
 
 addr Cp = 0, Ip = 0;
 
 bool compile = true;  // default: start in @ref compile state
+bool trace = true;    // default: log enabled for debug
 
 addr C(Op op) {
+    fprintf(stderr, "\t%.2X", (byte)op);
     *(Op *)(&M[Cp]) = op;
     return Cp += sizeof(op);
 }
 
 addr C(cell n) {
+    fprintf(stderr, "\t%.4X", n);
     *(cell *)(&M[Cp]) = n;
     return Cp += sizeof(n);
 }
@@ -41,7 +61,7 @@ addr C(cell n) {
 std::map<std::string, addr> label;
 std::map<std::string, std::vector<addr>> forward;
 
-addr lookup(char *label) {
+addr lookup(std::string *label) {
     // auto it = label.find(label);
     // if (it != label.end()) { return it->second; }
     return 0;

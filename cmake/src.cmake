@@ -19,6 +19,7 @@ file(GLOB C
     hw/${HW}/Core/Src/*.c*
     hw/${HW}/Drivers/${SERIES}xx_HAL_Driver/Src/*.c*
     hw/${HW}/USB_DEVICE/App/*.c* hw/${HW}/USB_DEVICE/Target/*.c*
+    hw/${HW}/Middlewares/ST/STM32_USB_Device_Library/Core/Src/*.c*
     hw/${HW}/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/*.c*
 )
 
