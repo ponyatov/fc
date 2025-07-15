@@ -37,3 +37,14 @@ addr C(cell n) {
     *(cell *)(&M[Cp]) = n;
     return Cp += sizeof(n);
 }
+
+std::map<std::string, addr> label;
+std::map<std::string, std::vector<addr>> forward;
+
+addr lookup(char *label) {
+    auto it = label.find(label);
+    if (it != label.end()) {
+        return it->second;
+    }
+    return 0;
+}

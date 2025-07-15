@@ -8,6 +8,14 @@
 #include <assert.h>
 /// @}
 
+/// @defgroup stl stl
+/// @ingroup libc
+/// @{
+#include <string>
+#include <map>
+#include <vector>
+/// @}
+
 /// @defgroup main main
 /// @ingroup libc
 /// @{
@@ -115,6 +123,13 @@ extern char *opName[];
 extern bool compile;  ///< compiling state marker
 extern addr C(Op);    ///< compile @ref Op
 extern addr C(cell);  ///< compile @ref cell
+
+/// labels table
+extern std::map<std::string, addr> label;
+/// forward references table
+extern std::map<std::string, std::vector<addr>> forward;
+
+extern addr lookup(char *label);  ///< lookup label in symbol table
 
 /// @}
 

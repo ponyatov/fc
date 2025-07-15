@@ -10,8 +10,10 @@ char* yyfile = nullptr;
 %x LINECOMMENT
 %x BLOCKCOMMENT
 
-s [-\+]
-n [0-9]
+s     [-\+]
+n     [0-9]
+alpha [a-zA-Z_]
+alnum [a-zA-Z_]
 
 %%
 ^"#!"               {BEGIN(LINECOMMENT);}   // shebang
@@ -30,6 +32,8 @@ n [0-9]
 "ret"           { yylval.cmd = Op::ret ; return CMD0; }
 
 {s}?{n}+        { yylval.n = atoi(yytext); return INT; }
+
+{alpha}{alnum}* { yylval.s = yytext; return ID; }
 
 [ \t\r\n]+      {}              // drop spaces
 .               {yyerror("");}  // lexer error on any undetected char
