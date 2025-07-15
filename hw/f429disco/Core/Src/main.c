@@ -58,7 +58,6 @@ UART_HandleTypeDef huart1;
 SDRAM_HandleTypeDef hsdram1;
 
 /* USER CODE BEGIN PV */
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -128,9 +127,10 @@ int main(void)
   int n = 0;
   while (1) {
       /* USER CODE END WHILE */
-      HAL_Delay(1000);
-      printf("%i\t", n++);
+
       /* USER CODE BEGIN 3 */
+      HAL_Delay(1000);
+      printf("%i ", n++);
   }
   /* USER CODE END 3 */
 }
