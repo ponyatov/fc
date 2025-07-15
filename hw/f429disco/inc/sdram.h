@@ -2,7 +2,7 @@
 #define __SDRAM_H_
 
 #include "stm32f4xx.h"
-// #include <memory.h>
+#include <memory.h>
 
 extern __attribute__((section(".xram"))) uint8_t _sixram, _sxram, _exram;
 
