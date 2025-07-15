@@ -27,24 +27,24 @@
             }
         },
         {
-            "name"            :  "cortexM",
+            "name"            :  "cortexm",
             "inherits"        :  "common",
             "hidden"          :   true,
             "toolchainFile"   :  "${sourceDir}/cmake/arm-none-eabi.cmake",
             "cacheVariables"  : {"OS":"none"}
         },
         {
-            "name"            : "cortexM4",
-            "inherits"        : "cortexM",
+            "name"            : "cortexm4",
+            "inherits"        : "cortexm",
             "hidden"          :  true,
-            "cacheVariables"  : {"ARCH":"cortexM4"}
+            "cacheVariables"  : {"ARCH":"cortexm4"}
         },
         {
             "name"            : "f429disco",
-            "inherits"        : "cortexM4",
+            "inherits"        : "cortexm4",
             "cacheVariables"  : {
                 "HW" :"f429disco",
-                "CPU":"stm32f429zit", "SERIES": "STM32F4"
+                "CPU":"stm32f429zi", "SERIES": "STM32F4"
             }
         },
         {
