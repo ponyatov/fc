@@ -425,7 +425,7 @@ let os:unit = //
     cross_ "os"
     for os in [
         "linux";
-        // "none";
+        "none";
         // "freertos";
         // "win32";
         // "rtos8266";
