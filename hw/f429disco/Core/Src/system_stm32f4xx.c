@@ -575,9 +575,18 @@ void SystemInit_ExtMemCtl(void)
 #if defined(STM32F446xx)
   FMC_Bank5_6->SDCR[0] = 0x00001954;
 #else  
-  FMC_Bank5_6->SDCR[0] = 0x000019E4;
+    // FMC_Bank5_6->SDCR[0] = 0x000019E4;
+    FMC_Bank5_6->SDCR[0] =
+        FMC_SDCR1_SDCLK_1 | FMC_SDCR1_RBURST | FMC_SDCR1_RPIPE_1;
+    /* Configure and enable SDRAM bank2 @ 0xD0000000 */
+    FMC_Bank5_6->SDCR[1] =
+        FMC_SDCR1_NR_0 | FMC_SDCR1_MWID_0 | FMC_SDCR1_NB | FMC_SDCR1_CAS;
+    // Number of Row Address Bits NR = 01 → 12 row bits
+    // Memory Data Bus Width MWID = 01 → 16-bit bus
+    // Number of Internal Banks (NB=1) 4 internal banks
+    // CAS Latency (CAS=11) =3
 #endif /* STM32F446xx */
-  FMC_Bank5_6->SDTR[0] = 0x01115351;      
+    // FMC_Bank5_6->SDTR[0] = 0x01115351;
   
   /* SDRAM initialization sequence */
   /* Clock enable command */

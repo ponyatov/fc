@@ -18,8 +18,7 @@ void SDRAM_Init(void) {
     /* Delay after an RCC peripheral clock enabling */
     tmp = READ_BIT(RCC->AHB3ENR, RCC_AHB3ENR_FMCEN);
 
-    /* Configure and enable SDRAM bank1 @ 0xD0000000 */
-    FMC_Bank5_6->SDCR[0] = 0x000019E4;
+    // FMC_Bank5_6->SDCR[0] = 0x000019E4;
     // Column Address Bits (NC = 9)  (typical for 512 columns) (A0-A8)
     // Row Address Bits (NR = 12)  (typical for 4096 rows) (A0-A11)
     // Data Bus Width (MWID = 16-bit) IS42S16400J, MT48LC4M32B2
@@ -35,7 +34,7 @@ void SDRAM_Init(void) {
     // speed) FMC_SDCR1_RPIPE_1 +clock cycle delay to improve timing (need
     // check)
 
-    // Initialization step 1
+    /* Configure and enable SDRAM bank2 @ 0xD0000000 */
     FMC_Bank5_6->SDCR[1] =
         FMC_SDCR1_NR_0 | FMC_SDCR1_MWID_0 | FMC_SDCR1_NB | FMC_SDCR1_CAS;
     // Number of Row Address Bits NR = 01 → 12 row bits
@@ -43,9 +42,19 @@ void SDRAM_Init(void) {
     // Number of Internal Banks (NB=1) 4 internal banks
     // CAS Latency (CAS=11) =3
 
+    // FMC_Bank5_6->SDTR[0] = 0x01115351;
+    // TRMD = 1 Load Mode Register to Active Delay = 2 cycles
+    // TXSR = 5 Exit Self-Refresh Delay = 6 cycles
+    // TRAS = 3 Self-Refresh Time = 4 cycles
+    // TRC  = 5 Row Cycle Delay = 6 cycles
+    // TWR  = 1 Write Recovery Time = 2 cycles
+    // TRP  = 1 Row Precharge Delay = 2 cycles
+    // TRCD = 5 Row-to-Column Delay = 6 cycles
+
     // // Initialization step 2
     // FMC_Bank5_6->SDTR[0] = TRC(7) | TRP(2);
     // FMC_Bank5_6->SDTR[1] = TMRD(2) | TXSR(7) | TRAS(4) | TWR(2) | TRCD(2);
+
     // // Initialization step 3
     // while (FMC_Bank5_6->SDSR & FMC_SDSR_BUSY)
     //     ;
