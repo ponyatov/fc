@@ -51,9 +51,12 @@ void SDRAM_Init(void) {
     // TRP  = 1 Row Precharge Delay = 2 cycles
     // TRCD = 5 Row-to-Column Delay = 6 cycles
 
-    // // Initialization step 2
+    // Initialization step 2
     // FMC_Bank5_6->SDTR[0] = TRC(7) | TRP(2);
-    // FMC_Bank5_6->SDTR[1] = TMRD(2) | TXSR(7) | TRAS(4) | TWR(2) | TRCD(2);
+    FMC_Bank5_6->SDTR[0] = (7 << FMC_SDTR1_TRC_Pos) | (2 << FMC_SDTR1_TRP_Pos);
+
+    // FMC_Bank5_6->SDTR[1] = TMRD(2) | TXSR(7) | TRAS(4) | TWR(2) |
+    // TRCD(2);
 
     // // Initialization step 3
     // while (FMC_Bank5_6->SDSR & FMC_SDSR_BUSY)

@@ -587,6 +587,8 @@ void SystemInit_ExtMemCtl(void)
     // CAS Latency (CAS=11) =3
 #endif /* STM32F446xx */
     // FMC_Bank5_6->SDTR[0] = 0x01115351;
+    // FMC_Bank5_6->SDTR[0] = TRC(7) | TRP(2);
+    FMC_Bank5_6->SDTR[0] = (7 << FMC_SDTR1_TRC_Pos) | (2 << FMC_SDTR1_TRP_Pos);
   
   /* SDRAM initialization sequence */
   /* Clock enable command */
