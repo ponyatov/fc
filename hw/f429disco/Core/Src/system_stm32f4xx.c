@@ -589,6 +589,11 @@ void SystemInit_ExtMemCtl(void)
     // FMC_Bank5_6->SDTR[0] = 0x01115351;
     // FMC_Bank5_6->SDTR[0] = TRC(7) | TRP(2);
     FMC_Bank5_6->SDTR[0] = (7 << FMC_SDTR1_TRC_Pos) | (2 << FMC_SDTR1_TRP_Pos);
+    // FMC_Bank5_6->SDTR[1] = TMRD(2) | TXSR(7) | TRAS(4) | TWR(2) | TRCD(2);
+    FMC_Bank5_6->SDTR[1] =  //
+        (2 << FMC_SDTR2_TMRD_Pos) | (7 << FMC_SDTR2_TXSR_Pos) |
+        (4 << FMC_SDTR2_TRAS_Pos) | (2 << FMC_SDTR2_TWR_Pos) |
+        (2 << FMC_SDTR2_TRCD_Pos);
   
   /* SDRAM initialization sequence */
   /* Clock enable command */
