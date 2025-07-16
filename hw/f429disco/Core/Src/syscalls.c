@@ -41,6 +41,7 @@ char **environ = __env;
 
 
 /* Functions */
+__attribute__((weak))
 void initialise_monitor_handles()
 {
 }
@@ -64,7 +65,8 @@ void _exit (int status)
   while (1) {}    /* Make sure we hang here */
 }
 
-__attribute__((weak)) int _read(int file, char *ptr, int len)
+__attribute__((weak))
+int _read(int file, char *ptr, int len)
 {
   (void)file;
   int DataIdx;
@@ -89,6 +91,7 @@ __attribute__((weak)) int _write(int file, char *ptr, int len)
   return len;
 }
 
+__attribute__((weak))
 int _close(int file)
 {
   (void)file;
@@ -103,12 +106,14 @@ int _fstat(int file, struct stat *st)
   return 0;
 }
 
+__attribute__((weak))
 int _isatty(int file)
 {
   (void)file;
   return 1;
 }
 
+__attribute__((weak))
 int _lseek(int file, int ptr, int dir)
 {
   (void)file;
@@ -117,6 +122,7 @@ int _lseek(int file, int ptr, int dir)
   return 0;
 }
 
+__attribute__((weak))
 int _open(char *path, int flags, ...)
 {
   (void)path;
@@ -132,6 +138,7 @@ int _wait(int *status)
   return -1;
 }
 
+__attribute__((weak))
 int _unlink(char *name)
 {
   (void)name;
@@ -139,6 +146,7 @@ int _unlink(char *name)
   return -1;
 }
 
+__attribute__((weak))
 int _times(struct tms *buf)
 {
   (void)buf;
