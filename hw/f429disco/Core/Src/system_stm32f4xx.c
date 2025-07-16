@@ -566,10 +566,10 @@ void SystemInit_ExtMemCtl(void)
 #endif /* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F469xx || STM32F479xx */
   
 /*-- FMC Configuration -------------------------------------------------------*/
-  /* Enable the FMC interface clock */
-  RCC->AHB3ENR |= 0x00000001;
-  /* Delay after an RCC peripheral clock enabling */
-  tmp = READ_BIT(RCC->AHB3ENR, RCC_AHB3ENR_FMCEN);
+    /* Enable the FMC interface clock */
+    RCC->AHB3ENR |= RCC_AHB3ENR_FMCEN;  // 0x00000001
+    /* Delay after an RCC peripheral clock enabling */
+    tmp = READ_BIT(RCC->AHB3ENR, RCC_AHB3ENR_FMCEN);
 
   /* Configure and enable SDRAM bank1 */
 #if defined(STM32F446xx)
