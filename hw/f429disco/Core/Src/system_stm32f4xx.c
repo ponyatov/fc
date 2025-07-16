@@ -444,7 +444,7 @@ void SystemInit_ExtMemCtl(void)
   */
 void SystemInit_ExtMemCtl(void)
 {
-    __IO uint32_t tmp = 0x00;
+  __IO uint32_t tmp = 0x00;
 #if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx)\
  || defined(STM32F446xx) || defined(STM32F469xx) || defined(STM32F479xx)
 #if defined (DATA_IN_ExtSDRAM)
@@ -456,13 +456,12 @@ void SystemInit_ExtMemCtl(void)
       clock */
   RCC->AHB1ENR |= 0x0000007D;
 #else
-    /* (re)Enable GPIOD..GPIOG, /GPIOH /GPIOI interface clock */
-    tmp = RCC_AHB1ENR_GPIODEN | RCC_AHB1ENR_GPIOEEN | RCC_AHB1ENR_GPIOFEN |
-          RCC_AHB1ENR_GPIOGEN;  // RCC_AHB1ENR_GPIOHEN | RCC_AHB1ENR_GPIOIEN;
-    RCC->AHB1ENR |= tmp;        // 0x000001F8;
+  /* Enable GPIOC, GPIOD, GPIOE, GPIOF, GPIOG, GPIOH and GPIOI interface 
+      clock */
+  RCC->AHB1ENR |= 0x000001F8;
 #endif /* STM32F446xx */  
-    /* Delay after an RCC peripheral clock enabling */
-    tmp = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOCEN);
+  /* Delay after an RCC peripheral clock enabling */
+  tmp = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOCEN);
   
 #if defined(STM32F446xx)
   /* Connect PAx pins to FMC Alternate function */
@@ -566,29 +565,16 @@ void SystemInit_ExtMemCtl(void)
 #endif /* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F469xx || STM32F479xx */
   
 /*-- FMC Configuration -------------------------------------------------------*/
-    /* Enable the FMC interface clock */
-    RCC->AHB3ENR |= RCC_AHB3ENR_FMCEN;  // 0x00000001
-    /* Delay after an RCC peripheral clock enabling */
-    tmp = READ_BIT(RCC->AHB3ENR, RCC_AHB3ENR_FMCEN);
+  /* Enable the FMC interface clock */
+  RCC->AHB3ENR |= 0x00000001;
+  /* Delay after an RCC peripheral clock enabling */
+  tmp = READ_BIT(RCC->AHB3ENR, RCC_AHB3ENR_FMCEN);
 
-    /* Configure and enable SDRAM bank1 @ 0xD0000000 */
+  /* Configure and enable SDRAM bank1 */
 #if defined(STM32F446xx)
   FMC_Bank5_6->SDCR[0] = 0x00001954;
 #else  
-    FMC_Bank5_6->SDCR[0] =
-        0x000019E4 | FMC_SDCR1_SDCLK_1 | FMC_SDCR1_RBURST | FMC_SDCR1_RPIPE_1;
-    // Column Address Bits (NC = 9)  (typical for 512 columns) (A0-A8)
-    // Row Address Bits (NR = 12)  (typical for 4096 rows) (A0-A11)
-    // Data Bus Width (MWID = 16-bit) IS42S16400J 4Mx16b, MT48LC4M32B2 128M
-    // Internal Banks (NB = 4) 4 internal banks (standard for most SDRAMs)
-    // CAS Latency (CAS = 2 cycles) read delay set to 2 clock cycles
-    // Write Protection (WP = Disabled)
-    // Read Pipeline Delay (RPIPE = 0) No additional delays for read operations
-    // RBSZ Reserved (must be 0)
-    // | FMC_SDCR1_SDCLK_1 HCLK/1 full speed overclock (IS42S16400J 160 MHz max)
-    // | FMC_SDCR1_RBURST Enables burst read operations (need check for speed)
-    // | FMC_SDCR1_RPIPE_1 1 clock cycle delay to improve timing (need check)
-
+  FMC_Bank5_6->SDCR[0] = 0x000019E4;
 #endif /* STM32F446xx */
   FMC_Bank5_6->SDTR[0] = 0x01115351;      
   
