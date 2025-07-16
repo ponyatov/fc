@@ -8,8 +8,8 @@ void SDRAM_Init(void) {
 
     /* (re)Enable GPIOD..GPIOG, /GPIOH /GPIOI interface clock */
     tmp = RCC_AHB1ENR_GPIODEN | RCC_AHB1ENR_GPIOEEN | RCC_AHB1ENR_GPIOFEN |
-          RCC_AHB1ENR_GPIOGEN;  // RCC_AHB1ENR_GPIOHEN | RCC_AHB1ENR_GPIOIEN;
-    RCC->AHB1ENR |= tmp;        // 0x000001F8;
+          RCC_AHB1ENR_GPIOGEN | RCC_AHB1ENR_GPIOHEN | RCC_AHB1ENR_GPIOIEN;
+    RCC->AHB1ENR |= tmp;  // 0x000001F8;
     /* Delay after an RCC peripheral clock enabling */
     tmp = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOCEN);
 
@@ -19,8 +19,7 @@ void SDRAM_Init(void) {
     tmp = READ_BIT(RCC->AHB3ENR, RCC_AHB3ENR_FMCEN);
 
     /* Configure and enable SDRAM bank1 @ 0xD0000000 */
-    FMC_Bank5_6->SDCR[0] =
-        0x000019E4 | FMC_SDCR1_SDCLK_1 | FMC_SDCR1_RBURST | FMC_SDCR1_RPIPE_1;
+    FMC_Bank5_6->SDCR[0] = 0x000019E4;
     // Column Address Bits (NC = 9)  (typical for 512 columns) (A0-A8)
     // Row Address Bits (NR = 12)  (typical for 4096 rows) (A0-A11)
     // Data Bus Width (MWID = 16-bit) IS42S16400J, MT48LC4M32B2
@@ -29,15 +28,21 @@ void SDRAM_Init(void) {
     // Write Protection (WP = Disabled)
     // Read Pipeline Delay (RPIPE = 0) No additional delays for read operations
     // RBSZ Reserved (must be 0)
-    // | FMC_SDCR1_SDCLK_1 HCLK/1 full speed overclock (IS42S16400J 160 MHz max)
-    // | FMC_SDCR1_RBURST Enables burst read operations (need check for speed)
-    // | FMC_SDCR1_RPIPE_1 1 clock cycle delay to improve timing (need check)
-
-    // Initialization step 1
     FMC_Bank5_6->SDCR[0] =
         FMC_SDCR1_SDCLK_1 | FMC_SDCR1_RBURST | FMC_SDCR1_RPIPE_1;
-    // FMC_Bank5_6->SDCR[1] =
-    //     FMC_SDCR1_NR_0 | FMC_SDCR1_MWID_0 | FMC_SDCR1_NB | FMC_SDCR1_CAS;
+    // FMC_SDCR1_SDCLK_1 SDCLK = 10 2 clock cycles delay (IS42S16400J 160 MHz
+    // max) FMC_SDCR1_RBURST Enables burst read operations (need check for
+    // speed) FMC_SDCR1_RPIPE_1 +clock cycle delay to improve timing (need
+    // check)
+
+    // Initialization step 1
+    FMC_Bank5_6->SDCR[1] =
+        FMC_SDCR1_NR_0 | FMC_SDCR1_MWID_0 | FMC_SDCR1_NB | FMC_SDCR1_CAS;
+    // Number of Row Address Bits NR = 01 → 12 row bits
+    // Memory Data Bus Width MWID = 01 → 16-bit bus
+    // Number of Internal Banks (NB=1) 4 internal banks
+    // CAS Latency (CAS=11) =3
+
     // // Initialization step 2
     // FMC_Bank5_6->SDTR[0] = TRC(7) | TRP(2);
     // FMC_Bank5_6->SDTR[1] = TMRD(2) | TXSR(7) | TRAS(4) | TWR(2) | TRCD(2);
