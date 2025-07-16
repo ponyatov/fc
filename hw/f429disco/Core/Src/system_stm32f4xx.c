@@ -444,7 +444,7 @@ void SystemInit_ExtMemCtl(void)
   */
 void SystemInit_ExtMemCtl(void)
 {
-  __IO uint32_t tmp = 0x00;
+    __IO uint32_t tmp = 0x00;
 #if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx)\
  || defined(STM32F446xx) || defined(STM32F469xx) || defined(STM32F479xx)
 #if defined (DATA_IN_ExtSDRAM)
@@ -456,12 +456,13 @@ void SystemInit_ExtMemCtl(void)
       clock */
   RCC->AHB1ENR |= 0x0000007D;
 #else
-  /* Enable GPIOC, GPIOD, GPIOE, GPIOF, GPIOG, GPIOH and GPIOI interface 
-      clock */
-  RCC->AHB1ENR |= 0x000001F8;
+    /* (re)Enable GPIOD..GPIOG, /GPIOH /GPIOI interface clock */
+    tmp = RCC_AHB1ENR_GPIODEN | RCC_AHB1ENR_GPIOEEN | RCC_AHB1ENR_GPIOFEN |
+          RCC_AHB1ENR_GPIOGEN | RCC_AHB1ENR_GPIOHEN | RCC_AHB1ENR_GPIOIEN;
+    RCC->AHB1ENR |= tmp;  // 0x000001F8;
 #endif /* STM32F446xx */  
-  /* Delay after an RCC peripheral clock enabling */
-  tmp = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOCEN);
+    /* Delay after an RCC peripheral clock enabling */
+    tmp = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOCEN);
   
 #if defined(STM32F446xx)
   /* Connect PAx pins to FMC Alternate function */
