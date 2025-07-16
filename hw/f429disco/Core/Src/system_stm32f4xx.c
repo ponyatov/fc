@@ -571,11 +571,21 @@ void SystemInit_ExtMemCtl(void)
     /* Delay after an RCC peripheral clock enabling */
     tmp = READ_BIT(RCC->AHB3ENR, RCC_AHB3ENR_FMCEN);
 
-  /* Configure and enable SDRAM bank1 */
+    /* Configure and enable SDRAM bank1 */
 #if defined(STM32F446xx)
   FMC_Bank5_6->SDCR[0] = 0x00001954;
 #else  
-  FMC_Bank5_6->SDCR[0] = 0x000019E4;
+    FMC_Bank5_6->SDCR[0] = 0x000019E4;
+    FMC_SDCR1_NC
+    // Column Address Bits (NC = 9)  (typical for 512 columns) (A0-A8)
+    // Row Address Bits (NR = 12)  (typical for 4096 rows) (A0-A11)
+    // Data Bus Width (MWID = 16-bit) IS42S16400J 64M, MT48LC4M32B2 128M
+    // Internal Banks (NB = 4) 4 internal banks (standard for most SDRAMs)
+    // CAS Latency (CAS = 2 cycles) read delay set to 2 clock cycles
+    // Write Protection (WP = Disabled)
+    // Read Pipeline Delay (RPIPE = 0) No additional delays for read operations
+    // RBSZ Reserved (must be 0)
+
 #endif /* STM32F446xx */
   FMC_Bank5_6->SDTR[0] = 0x01115351;      
   
