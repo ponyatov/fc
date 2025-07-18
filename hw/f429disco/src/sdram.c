@@ -4,15 +4,8 @@ uint8_t hello[] __attribute__((section(".xram"))) = "Hello XRAM";
 
 /// https://en.radzio.dxp.pl/stm32f429idiscovery/sdram.html
 void SDRAM_Init(void) {
-    vu32 tmp;
-    uint8_t i = 0;
+    __IO uint32_t tmp = 0x00;
 
-    // Configure all pins used for SDRAM connections
-    while (GPIOInitTable[i] != 0) {
-        gpio_conf(GPIOInitTable[i], PINInitTable[i], MODE_AF, TYPE_PUSHPULL,
-                  SPEED_100MHz, PULLUP_NONE, 12);
-        i++;
-    }
     // Enable clock for FMC
     RCC->AHB3ENR |= RCC_AHB3ENR_FMCEN;
     // Initialization step 1
