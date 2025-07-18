@@ -61,13 +61,22 @@ void SDRAM_Init(void) {
         (4 << FMC_SDTR2_TRAS_Pos) | (2 << FMC_SDTR2_TWR_Pos) |
         (2 << FMC_SDTR2_TRCD_Pos);
 
-    // // Initialization step 3
-    // while (FMC_Bank5_6->SDSR & FMC_SDSR_BUSY)
-    //     ;
-    // FMC_Bank5_6->SDCMR = 1 | FMC_SDCMR_CTB2 | (1 << 5);
-    // // Initialization step 4
-    // for (int tmp = 0; tmp < 1000000; tmp++)
-    //     ;
+    /* SDRAM initialization sequence */
+    // 1. Clock Configuration Enable:
+    // CTB=1 (Bank 1 & 5/6)
+    // MODE=1 (Clock Configuration Enable)
+    FMC_Bank5_6->SDCMR = 0x00000011;
+    while (FMC_Bank5_6->SDSR & FMC_SDSR_BUSY)
+        ;
+    // 2. Precharge All Command: CTB=1, MODE=2 (PALL)
+    // CTB=1 (Bank 2 & 5/6)
+    // MODE=2 (Clock Configuration Enable)
+    FMC_Bank5_6->SDCMR = 0x00000012;
+    while (FMC_Bank5_6->SDSR & FMC_SDSR_BUSY)
+        ;
+    // Multiple Auto-Refresh (AR) Commands
+    FMC_Bank5_6->SDCMR = 0x00000073;
+
     // // Initialization step 5
     // while (FMC_Bank5_6->SDSR & FMC_SDSR_BUSY)
     //     ;
