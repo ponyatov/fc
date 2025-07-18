@@ -13,26 +13,26 @@ void SDRAM_Init(void) {
     /* Delay after an RCC peripheral clock enabling */
     tmp = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOCEN);
 
+    /*-- FMC Configuration ---------------------------------------------------*/
     /* Enable the FMC interface clock */
     RCC->AHB3ENR |= RCC_AHB3ENR_FMCEN;  // 0x00000001
     /* Delay after an RCC peripheral clock enabling */
     tmp = READ_BIT(RCC->AHB3ENR, RCC_AHB3ENR_FMCEN);
 
     // FMC_Bank5_6->SDCR[0] = 0x000019E4;
-    // Column Address Bits (NC = 9)  (typical for 512 columns) (A0-A8)
-    // Row Address Bits (NR = 12)  (typical for 4096 rows) (A0-A11)
-    // Data Bus Width (MWID = 16-bit) IS42S16400J, MT48LC4M32B2
-    // Internal Banks (NB = 4) 4 internal banks (standard for most SDRAMs)
-    // CAS Latency (CAS = 2 cycles) read delay set to 2 clock cycles
-    // Write Protection (WP = Disabled)
-    // Read Pipeline Delay (RPIPE = 0) No additional delays for read operations
-    // RBSZ Reserved (must be 0)
-    FMC_Bank5_6->SDCR[0] =
-        FMC_SDCR1_SDCLK_1 | FMC_SDCR1_RBURST | FMC_SDCR1_RPIPE_1;
-    // FMC_SDCR1_SDCLK_1 SDCLK = 10 2 clock cycles delay (IS42S16400J 160 MHz
-    // max) FMC_SDCR1_RBURST Enables burst read operations (need check for
-    // speed) FMC_SDCR1_RPIPE_1 +clock cycle delay to improve timing (need
-    // check)
+    // Column Address Bits (NC = 00) 8-bit columns
+    // Row Address Bits (NR = 11) 12-bit rows
+    // Data Bus Width (MWID = 01) 16-bit data bus IS42S16400J
+    // Internal Banks (NB = 1) 4 internal banks (standard for most SDRAMs)
+    // CAS Latency (CAS = 11) 3 clock cycles CAS latency
+    // Write Protection (WP = 0) Write Protection disabled
+    // SDRAM Clock Configuration (SDCLK = 10) 2:1 clock division
+    // Read Burst (RBURST = 1) Enable
+    // Read Pipe Delay (RPIPE = 00) No delay (immediately after CAS latency)
+    FMC_Bank5_6->SDCR[0] = 0x000019E4;
+    // FMC_SDCR1_SDCLK_1 (SDCLK = 01) 2 clock cycles delay
+    // FMC_SDCR1_RBURST Enables burst read operations (need check for speed)
+    // FMC_SDCR1_RPIPE_1 +clock cycle delay to improve timing (need check)
 
     /* Configure and enable SDRAM bank2 @ 0xD0000000 */
     FMC_Bank5_6->SDCR[1] =

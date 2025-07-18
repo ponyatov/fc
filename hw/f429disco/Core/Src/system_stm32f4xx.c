@@ -565,7 +565,7 @@ void SystemInit_ExtMemCtl(void)
   GPIOI->PUPDR   = 0x00000000;
 #endif /* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F469xx || STM32F479xx */
   
-/*-- FMC Configuration -------------------------------------------------------*/
+    /*-- FMC Configuration ---------------------------------------------------*/
     /* Enable the FMC interface clock */
     RCC->AHB3ENR |= RCC_AHB3ENR_FMCEN;  // 0x00000001
     /* Delay after an RCC peripheral clock enabling */
@@ -575,25 +575,9 @@ void SystemInit_ExtMemCtl(void)
 #if defined(STM32F446xx)
   FMC_Bank5_6->SDCR[0] = 0x00001954;
 #else  
-    // FMC_Bank5_6->SDCR[0] = 0x000019E4;
-    FMC_Bank5_6->SDCR[0] =
-        FMC_SDCR1_SDCLK_1 | FMC_SDCR1_RBURST | FMC_SDCR1_RPIPE_1;
-    /* Configure and enable SDRAM bank2 @ 0xD0000000 */
-    FMC_Bank5_6->SDCR[1] =
-        FMC_SDCR1_NR_0 | FMC_SDCR1_MWID_0 | FMC_SDCR1_NB | FMC_SDCR1_CAS;
-    // Number of Row Address Bits NR = 01 → 12 row bits
-    // Memory Data Bus Width MWID = 01 → 16-bit bus
-    // Number of Internal Banks (NB=1) 4 internal banks
-    // CAS Latency (CAS=11) =3
+  FMC_Bank5_6->SDCR[0] = 0x000019E4;
 #endif /* STM32F446xx */
-    // FMC_Bank5_6->SDTR[0] = 0x01115351;
-    // FMC_Bank5_6->SDTR[0] = TRC(7) | TRP(2);
-    FMC_Bank5_6->SDTR[0] = (7 << FMC_SDTR1_TRC_Pos) | (2 << FMC_SDTR1_TRP_Pos);
-    // FMC_Bank5_6->SDTR[1] = TMRD(2) | TXSR(7) | TRAS(4) | TWR(2) | TRCD(2);
-    FMC_Bank5_6->SDTR[1] =  //
-        (2 << FMC_SDTR2_TMRD_Pos) | (7 << FMC_SDTR2_TXSR_Pos) |
-        (4 << FMC_SDTR2_TRAS_Pos) | (2 << FMC_SDTR2_TWR_Pos) |
-        (2 << FMC_SDTR2_TRCD_Pos);
+  FMC_Bank5_6->SDTR[0] = 0x01115351;      
   
   /* SDRAM initialization sequence */
   /* Clock enable command */
